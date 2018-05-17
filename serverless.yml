@@ -1,0 +1,36 @@
+service: informant-amp
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: eu-central-1
+  environment: 
+    BUCKET_NAME: ${self:custom.bucket}
+    CMS_API_URL: ${file(.env.yml):CMS_API_URL}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:PutObject
+        - s3:GetObject
+        - s3:PutObjectAcl
+        - s3:ListBucket
+      Resource: "arn:aws:s3:::${self:custom.bucket}/*"
+
+functions:
+  updateReport:
+    handler: handler.updateReport
+    events:
+      - http:
+          path: updateReport
+          method: post
+
+resources:
+  Resources:
+    HtmlBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.bucket}
+        AccessControl: 'PublicRead'
+
+custom:
+  bucket: informant-amp-web-${file(.env.yml):DEPLOY_ALIAS,opt:stage}

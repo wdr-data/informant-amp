@@ -1,3 +1,9 @@
-node_modules/
+# package directories
+node_modules
+jspm_packages
 
-yarn-error.log
+# Serverless directories
+.serverless
+
+# Config
+.env.yml

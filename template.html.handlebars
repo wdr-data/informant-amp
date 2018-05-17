@@ -116,8 +116,8 @@
           <amp-img class="image"
                    layout=responsive
                    src="{{.}}"
-                   width=1023
-                   height=493></amp-img>
+                   width="{{../report.mediaSize.width}}"
+                   height="{{../report.mediaSize.height}}"></amp-img>
         {{/report.media}}
         <p class="bubble bubble-bot">
           {{report.text}}
@@ -130,8 +130,8 @@
           <amp-img class="image"
                    layout=responsive
                    src="{{.}}"
-                   width=1023
-                   height=493></amp-img>
+                   width="{{../mediaSize.width}}"
+                   height="{{../mediaSize.height}}"></amp-img>
           {{/media}}
           <p class="bubble bubble-bot">{{text}}</p>
         {{/fragments}}
