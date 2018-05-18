@@ -49,10 +49,7 @@ module.exports.updateReport = async function(event) {
         json: true,
     })
 
-    if (report.media) {
-        report.mediaSize = await imageSize(report.media);
-    }
-    for (f of fragments) {
+    for (f of fragments.concat(report)) {
         if (f.media) {
             f.mediaSize = await imageSize(f.media);
         }
