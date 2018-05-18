@@ -82,7 +82,7 @@ module.exports.updateReport = async function(event) {
         await s3.putObject({
             ...defaultOpts,
             Key: e.Key,
-            WebsiteRedirectLocation: url,
+            WebsiteRedirectLocation: `/${url}`,
         }).promise();
     }
 
