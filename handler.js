@@ -55,6 +55,10 @@ module.exports.updateReport = async function(event) {
         }
     }
 
+    const date = new Date(report.created);
+    const urlBase = `${date.getFullYear()}/${date.getMonth()+1}/${payload.id}-`;
+    const url = urlBase.concat(slugify(report.headline));
+
     const data = {
         report,
         fragments,
@@ -69,10 +73,9 @@ module.exports.updateReport = async function(event) {
         ContentType: "text/html",
         ACL: "public-read",
     }
-    const date = new Date(report.created);
-    const url = `${date.getFullYear()}/${date.getMonth()+1}/${payload.id}-${slugify(report.headline)}`;
+
     const list = await s3.listObjects({
-        Prefix: `${date.getFullYear()}/${date.getMonth()+1}/${payload.id}-`,
+        Prefix: urlBase,
     }).promise();
 
     await s3.putObject({
