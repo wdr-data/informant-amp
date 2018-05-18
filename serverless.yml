@@ -31,6 +31,8 @@ resources:
       Properties:
         BucketName: ${self:custom.bucket}
         AccessControl: 'PublicRead'
+        WebsiteConfiguration:
+          IndexDocument: index.html
 
 custom:
   bucket: informant-amp-web-${file(.env.yml):DEPLOY_ALIAS,opt:stage}
