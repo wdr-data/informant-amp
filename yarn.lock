@@ -3099,6 +3099,12 @@ xdg-basedir@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/xdg-basedir/-/xdg-basedir-3.0.0.tgz#496b2cc109eca8dbacfe2dc72b603c17c5870ad4"
 
+xml-js@^1.6.3:
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/xml-js/-/xml-js-1.6.3.tgz#c28e1d76f446ad922f279e8612043029736e3e72"
+  dependencies:
+    sax "^1.2.4"
+
 xml2js@0.4.17:
   version "0.4.17"
   resolved "https://registry.yarnpkg.com/xml2js/-/xml2js-0.4.17.tgz#17be93eaae3f3b779359c795b419705a8817e868"
