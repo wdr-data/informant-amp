@@ -25,6 +25,8 @@ class BadRequestError extends LambdaResponseMixin(Error) {
     }
 }
 
+const s3 = new aws.S3({params: {Bucket: process.env.BUCKET_NAME}});
+
 module.exports.updateReport = async function(event) {
     let payload;
     try {
@@ -39,13 +41,33 @@ module.exports.updateReport = async function(event) {
         return new BadRequestError('ID is missing').toLambdaResponse();
     }
 
+    const apiData = await getData(payload.id);
+
+    const date = new Date(report.created);
+    const urlBase = `${date.getFullYear()}/${date.getMonth()+1}`;
+    const url = `${urlBase}/${payload.id}-${slugify(report.headline)}`;
+
+    const template = (await fs.readFile('template.html.handlebars')).toString();
+    const out = handlebars.compile(template)({
+        ...apiData,
+        url,
+    });
+    await storeArticle(out, urlBase, url, payload.id);
+
+    return {
+        body: JSON.stringify({success: true}),
+        statusCode: 200,
+    }
+};
+
+function getData(id) {
     const report = await request({
-        uri: `${process.env.CMS_API_URL}v1/reports/${payload.id}`,
+        uri: `${process.env.CMS_API_URL}v1/reports/${id}`,
         json: true,
     });
 
     const fragments = await request({
-        uri: `${process.env.CMS_API_URL}v1/reports/fragments/?report=${payload.id}`,
+        uri: `${process.env.CMS_API_URL}v1/reports/fragments/?report=${id}`,
         json: true,
     })
 
@@ -55,28 +77,21 @@ module.exports.updateReport = async function(event) {
         }
     }
 
-    const date = new Date(report.created);
-    const urlBase = `${date.getFullYear()}/${date.getMonth()+1}/${payload.id}-`;
-    const url = urlBase.concat(slugify(report.headline));
-
-    const data = {
+    return {
         report,
         fragments,
-        url,
-    };
+    }
+}
 
-    const template = (await fs.readFile('template.html.handlebars')).toString();
-    const out = handlebars.compile(template)(data);
-
-    const s3 = new aws.S3({params: {Bucket: process.env.BUCKET_NAME}});
+function storeArticle(content, urlBase, url, id) {
     const defaultOpts = {
-        Body: out,
+        Body: content,
         ContentType: "text/html",
         ACL: "public-read",
     }
 
     const list = await s3.listObjects({
-        Prefix: urlBase,
+        Prefix: `${urlBase}/${id}-`,
     }).promise();
 
     await s3.putObject({
@@ -94,9 +109,4 @@ module.exports.updateReport = async function(event) {
             WebsiteRedirectLocation: `/${url}`,
         }).promise();
     }
-
-    return {
-        body: JSON.stringify({success: true}),
-        statusCode: 200,
-    }
-};
+}
