@@ -62,6 +62,7 @@ module.exports.updateReport = async function(event) {
     const data = {
         report,
         fragments,
+        url,
     };
 
     const template = (await fs.readFile('template.html.handlebars')).toString();
