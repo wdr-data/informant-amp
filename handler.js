@@ -5,15 +5,23 @@ const imageSize = require('probe-image-size');
 const aws = require('aws-sdk');
 const slugify = require('slugify');
 
-class BadRequestError extends Error {
-    toLambdaResponse() {
-        return {
-            statusCode: 400,
-            body: this.message,
-            headers: {
-                "content-type": "text/plain",
+const LambdaResponseMixin = (Base) =>
+    class extends Base {
+        toLambdaResponse() {
+            return {
+                statusCode: this.statusCode || 500,
+                body: this.message,
+                headers: {
+                    "content-type": "text/plain",
+                }
             }
         }
+    }
+
+class BadRequestError extends LambdaResponseMixin(Error) {
+    constructor(message) {
+        super(message);
+        this.statusCode = 500;
     }
 }
 
