@@ -62,7 +62,7 @@ module.exports.updateReport = async function(event) {
 
     const template = (await fs.readFile('template.html.handlebars')).toString();
     const out = handlebars.compile(template)(data);
-    
+
     const s3 = new aws.S3({params: {Bucket: process.env.BUCKET_NAME}});
     const defaultOpts = {
         Body: out,
@@ -74,7 +74,7 @@ module.exports.updateReport = async function(event) {
     const list = await s3.listObjects({
         Prefix: `${date.getFullYear()}/${date.getMonth()+1}/${payload.id}-`,
     }).promise();
-    
+
     await s3.putObject({
         ...defaultOpts,
         Key: url,
