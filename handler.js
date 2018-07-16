@@ -17,7 +17,7 @@ const LambdaResponseMixin = (Base) =>
                 }
             }
         }
-    }
+    };
 
 class BadRequestError extends LambdaResponseMixin(Error) {
     constructor(message) {
@@ -72,7 +72,7 @@ function getData(id) {
     const fragments = await request({
         uri: `${process.env.CMS_API_URL}v1/reports/fragments/?report=${id}`,
         json: true,
-    })
+    });
 
     for (f of fragments.concat(report)) {
         if (f.media) {
@@ -91,7 +91,7 @@ function storeArticle(content, urlBase, url, id) {
         Body: content,
         ContentType: "text/html",
         ACL: "public-read",
-    }
+    };
 
     const list = await s3.listObjects({
         Prefix: `${urlBase}/${id}-`,
@@ -148,7 +148,7 @@ function storeMonthSitemap(urlBase, url) {
         loc: { '_text': urlOrigin.concat(url) },
         lastmod: { '_text': date.toISOString() },
         changefreq: { '_text': 'never' },
-    }
+    };
     let replaced = false;
     const updatedUrls = sitemapMonth.urlset.urls.map((entry) => {
         if (!entry.loc._text.startsWith(`${urlOrigin}${urlBase}/${payload.id}-`)) {
