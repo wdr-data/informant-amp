@@ -63,7 +63,7 @@ module.exports.updateReport = async function(event) {
     }
 };
 
-function getData(id) {
+async function getData(id) {
     const report = await request({
         uri: `${process.env.CMS_API_URL}v1/reports/${id}`,
         json: true,
@@ -86,7 +86,7 @@ function getData(id) {
     }
 }
 
-function storeArticle(content, urlBase, url, id) {
+async function storeArticle(content, urlBase, url, id) {
     const defaultOpts = {
         Body: content,
         ContentType: "text/html",
@@ -114,7 +114,7 @@ function storeArticle(content, urlBase, url, id) {
     }
 }
 
-function storeMonthSitemap(urlBase, url) {
+async function storeMonthSitemap(urlBase, url) {
     let sitemapExisting;
     try {
         sitemapExisting = (await s3.getObject({Key: `${urlBase}/sitemap.xml`}).promise()).Body;
