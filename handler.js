@@ -50,6 +50,7 @@ module.exports.updateReport = async function(event) {
     const url = `${urlBase}/${payload.id}-${slugify(report.headline)}`;
 
     const template = (await fs.readFile('template.html.handlebars')).toString();
+    handlebars.registerHelper( "joinTags", ( tagList ) => tagList.map(( e ) => e.name).join( "," ));
     const out = handlebars.compile(template)({
         ...apiData,
         url,
