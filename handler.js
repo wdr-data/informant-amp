@@ -56,7 +56,7 @@ module.exports.updateReport = async function(event) {
     });
     await storeArticle(out, urlBase, url, payload.id);
 
-    await storeMonthSitemap(urlBase, url);
+    await storeMonthSitemap(urlBase, url, payload, date);
 
     return {
         body: JSON.stringify({success: true}),
@@ -115,7 +115,7 @@ async function storeArticle(content, urlBase, url, id) {
     }
 }
 
-async function storeMonthSitemap(urlBase, url) {
+async function storeMonthSitemap(urlBase, url, payload, date) {
     let sitemapExisting;
     try {
         sitemapExisting = (await s3.getObject({Key: `${urlBase}/sitemap.xml`}).promise()).Body;
