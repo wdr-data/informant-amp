@@ -43,6 +43,7 @@ module.exports.updateReport = async function(event) {
     }
 
     const apiData = await getData(payload.id);
+    const { report, fragments } = apiData;
 
     const date = new Date(report.created);
     const urlBase = `${date.getFullYear()}/${date.getMonth()+1}`;
