@@ -95,15 +95,42 @@
       </style>
     </noscript>
     <script type="application/ld+json">
-    {
+        {
       "@context": "http://schema.org",
       "@type": "NewsArticle",
       "headline": "{{report.headline}}",
-      "image": [
-        "{{report.media}}"
-      ],
-      "datePublished": "{{report.created}}",
-      "keywords": "{{joinTags report.tags}}"
+      "alternativeHeadline": "{{report.short_headline}}",
+      "image": {
+          "@type": "ImageObject",
+          "url": "{{report.media}}"
+        },
+      "datePublished": "{{report.published_date}}",
+      "dateModified": "{{report.modified}}",
+      "author": {
+      	"@type": "Person",
+      	"name": "1Live Infos"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "wdr.de",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www1.wdr.de/resources/img/wdr/logo/wdr_logo_print.png",
+          "height": 36,
+          "width": 117
+          }
+      },
+      "keywords": "{{joinTags report.genres}},{{joinTags report.tags}}",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{url}}"
+      },
+      "url": "{{url}}",
+      "isAccessibleForFree": true,
+      "inLanguage": {
+      	"@type": "Language",
+        "name": "German"
+        }
     }
     </script>
 
