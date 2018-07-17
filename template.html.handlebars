@@ -70,6 +70,16 @@
       .bubble-bot + .image {
         margin-top: .5rem;
       }
+      .bubble-image {
+        margin: 0;
+      }
+      .bubble-animated {
+        opacity: 0;
+      }
+      .image .noscript {
+        max-width: 100%;
+        height: auto;
+      }
       footer {
         margin-top: 3rem;
         margin-bottom: 1rem;
@@ -77,6 +87,13 @@
         justify-content: space-between;
       }
     </style>
+    <noscript>
+      <style>
+        .bubble-animated {
+          opacity: 1;
+        }
+      </style>
+    </noscript>
     <script type="application/ld+json">
     {
       "@context": "http://schema.org",
@@ -92,6 +109,8 @@
 
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script async custom-element="amp-position-observer" src="https://cdn.ampproject.org/v0/amp-position-observer-0.1.js"></script>
+    <script async custom-element="amp-animation" src="https://cdn.ampproject.org/v0/amp-animation-0.1.js"></script>
   </head>
   <body>
     <header class="container">
@@ -118,23 +137,85 @@
                    layout=responsive
                    src="{{.}}"
                    width="{{../report.mediaSize.width}}"
-                   height="{{../report.mediaSize.height}}"></amp-img>
+                   height="{{../report.mediaSize.height}}">
+            <noscript>
+              <img class="image noscript"
+                   src="{{.}}"
+                   width="{{../report.mediaSize.width}}"
+                   height="{{../report.mediaSize.height}}"
+              />
+            </noscript>
+          </amp-img>
         {{/report.media}}
         <p class="bubble bubble-bot">
           {{report.text}}
         </p>
         {{#fragments}}
           {{#question}}
-          <p class="bubble bubble-user">{{.}}</p>
+          <p id="bubble-user-{{../id}}" class="bubble bubble-user bubble-animated">
+            <amp-position-observer on="enter:bubbleUserTransition-{{../id}}.start"
+                                   layout="nodisplay"
+                                   once>
+            </amp-position-observer>
+            <amp-animation id="bubbleUserTransition-{{../id}}"
+                           layout="nodisplay">
+              <script type="application/json">
+                      {
+                          "selector": "#bubble-user-{{../id}}",
+                          "animation": "bubbleTransition"
+                      }
+              </script>
+            </amp-animation>
+            {{.}}
+          </p>
           {{/question}}
           {{#media}}
-          <amp-img class="image"
-                   layout=responsive
-                   src="{{.}}"
-                   width="{{../mediaSize.width}}"
-                   height="{{../mediaSize.height}}"></amp-img>
+          <p id="bubble-image-{{../id}}" class="bubble-image bubble-animated">
+            <amp-position-observer on="enter:imageBotTransition-{{../id}}.start"
+                                   layout="nodisplay"
+                                   once>
+            </amp-position-observer>
+            <amp-animation id="imageBotTransition-{{../id}}"
+                           layout="nodisplay">
+              <script type="application/json">
+                {
+                  "selector": "#bubble-image-{{../id}}",
+                  "animation": "bubbleTransition"
+                }
+              </script>
+            </amp-animation>
+            <amp-img class="image"
+                     layout=responsive
+                     src="{{.}}"
+                     width="{{../mediaSize.width}}"
+                     height="{{../mediaSize.height}}">
+              <noscript>
+                <img class="image noscript"
+                     src="{{.}}"
+                     width="{{../mediaSize.width}}"
+                     height="{{../mediaSize.height}}"
+                />
+              </noscript>
+            </amp-img>
+          </p>
           {{/media}}
-          <p class="bubble bubble-bot">{{text}}</p>
+          <p id="bubble-bot-{{id}}" class="bubble bubble-bot bubble-animated">
+              <amp-position-observer on="enter:bubbleBotTransition-{{id}}.start"
+                                     layout="nodisplay"
+                                     once
+              ></amp-position-observer>
+              <amp-animation id="bubbleBotTransition-{{id}}"
+                             layout="nodisplay"
+              >
+                  <script type="application/json">
+                      {
+                          "selector": "#bubble-bot-{{id}}",
+                          "animation": "bubbleTransition"
+                      }
+                  </script>
+              </amp-animation>
+              {{text}}
+          </p>
         {{/fragments}}
       </section>
     </article>
@@ -142,5 +223,27 @@
       <span>© WDR 2018</span>
       <a href="https://www1.wdr.de/radio/1live/einslive-impressum-100.html">Impressum</a>
     </footer>
+    <amp-animation id="bubbleTransition"
+                   layout="nodisplay"
+    >
+    <script type="application/json">
+        {
+            "duration": "0.4s",
+            "easing": "ease-out",
+            "fill": "forwards",
+            "direction": "normal",
+            "keyframes": [
+                {
+                    "opacity": "0",
+                    "transform": "translateY(100px)"
+                },
+                {
+                    "opacity": "1",
+                    "transform": "translateY(0px)"
+                }
+            ]
+        }
+    </script>
+    </amp-animation>
   </body>
 </html>
