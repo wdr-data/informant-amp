@@ -154,21 +154,49 @@
       <h1>{{report.headline}}</h1>
       <section class="fragments">
         {{#report.media}}
-          <amp-img class="image"
-                   layout=responsive
-                   src="{{.}}"
-                   width="{{../report.mediaSize.width}}"
-                   height="{{../report.mediaSize.height}}">
-            <noscript>
-              <img class="image noscript"
-                   src="{{.}}"
-                   width="{{../report.mediaSize.width}}"
-                   height="{{../report.mediaSize.height}}"
-              />
-            </noscript>
-          </amp-img>
+          <p id="bubble-image-intro" class="bubble-image bubble-animated">
+            <amp-position-observer on="enter:bubbleImageIntro.start"
+                                   layout="nodisplay"
+                                   once>
+            </amp-position-observer>
+            <amp-animation id="bubbleImageIntro"
+                           layout="nodisplay">
+              <script type="application/json">
+                      {
+                          "selector": "#bubble-image-intro",
+                          "animation": "bubbleTransition"
+                      }
+              </script>
+            </amp-animation>
+            <amp-img class="image"
+                    layout=responsive
+                    src="{{.}}"
+                    width="{{../report.mediaSize.width}}"
+                    height="{{../report.mediaSize.height}}">
+              <noscript>
+                <img class="image noscript"
+                    src="{{.}}"
+                    width="{{../report.mediaSize.width}}"
+                    height="{{../report.mediaSize.height}}"
+                />
+              </noscript>
+            </amp-img>
+          </p>
         {{/report.media}}
-        <p class="bubble bubble-bot">
+        <p id="bubble-bot-intro" class="bubble bubble-bot bubble-animated">
+          <amp-position-observer on="enter:bubbleBotIntro.start"
+                                   layout="nodisplay"
+                                   once>
+            </amp-position-observer>
+            <amp-animation id="bubbleBotIntro"
+                           layout="nodisplay">
+              <script type="application/json">
+                      {
+                          "selector": "#bubble-bot-intro",
+                          "animation": "bubbleTransition"
+                      }
+              </script>
+            </amp-animation>
           {{report.text}}
         </p>
         {{#fragments}}
