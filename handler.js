@@ -145,16 +145,19 @@ async function storeArticle(content, urlBase, url, id) {
     }
 }
 
-async function storeMonthSitemap(urlBase, url, payload, dateModified) {
+async function loadSitemap(urlBase) {
     let sitemapExisting;
+    const sitemapKey = !urlBase ? "sitemap.xml" : `${urlBase}/sitemap.xml`
     try {
-        sitemapExisting = (await s3.getObject({Key: `${urlBase}/sitemap.xml`}).promise()).Body;
+        sitemapExisting = (await s3.getObject({Key: sitemapKey}).promise()).Body;
     } catch(e) {
         if (e.code !== 'NoSuchKey') {
             throw e;
         }
     }
-    let sitemapMonth = !sitemapExisting
+    const parentTag = !urlBase ? "sitemapindex" : "urlset";
+    const childTag = !urlBase ? "sitemap" : "url";
+    let sitemap = !sitemapExisting
         ? {
             _declaration: {
                 _attributes: {
@@ -162,18 +165,22 @@ async function storeMonthSitemap(urlBase, url, payload, dateModified) {
                     encoding: 'utf-8',
                 },
             },
-            urlset: {
+            [parentTag]: {
                 _attributes: {
                     xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9",
                 },
-                url: [],
+                [childTag]: [],
             },
         }
         : xml2js(sitemapExisting, { compact: true });
-    if (!Array.isArray(sitemapMonth.urlset.url)) {
-        sitemapMonth.urlset.url = [sitemapMonth.urlset.url];
+    if (!Array.isArray(sitemap[parentTag][childTag])) {
+        sitemap[parentTag][childTag] = [sitemap[parentTag][childTag]];
     }
+    return sitemap;
+}
 
+async function storeMonthSitemap(urlBase, url, payload, dateModified) {
+    const sitemapMonth = await loadSitemap(urlBase);
     const sitemapEntry = {
         loc: { '_text': urlOrigin.concat(url) },
         lastmod: { '_text': dateModified.toISOString() },
@@ -208,34 +215,7 @@ async function storeMonthSitemap(urlBase, url, payload, dateModified) {
 }
 
 async function storeIndexSitemap(urlBase) {
-    let sitemapExisting;
-    try {
-        sitemapExisting = (await s3.getObject({Key: `sitemap.xml`}).promise()).Body;
-    } catch(e) {
-        if (e.code !== 'NoSuchKey') {
-            throw e;
-        }
-    }
-    let sitemapIndex = !sitemapExisting
-        ? {
-            _declaration: {
-                _attributes: {
-                    version: '1.0',
-                    encoding: 'utf-8',
-                },
-            },
-            sitemapindex: {
-                _attributes: {
-                    xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9",
-                },
-                sitemap: [],
-            },
-        }
-        : xml2js(sitemapExisting, { compact: true });
-    if (!Array.isArray(sitemapIndex.sitemapindex.sitemap)) {
-        sitemapIndex.sitemapindex.sitemap = [sitemapIndex.sitemapindex.sitemap];
-    }
-
+    const sitemapIndex = await loadSitemap();
     const sitemapEntry = {
         loc: { '_text': `${urlOrigin}${urlBase}/sitemap.xml` },
         lastmod: { '_text': new Date().toISOString() },
