@@ -60,9 +60,9 @@ module.exports.updateReport = async function(event) {
     const result = validator.validateString(out);
 
     ((result.status === 'PASS') ? console.log : console.error)(result.status);
-    for (const ii = 0; ii < result.errors.length; ii++) {
+    for (let ii = 0; ii < result.errors.length; ii++) {
       const error = result.errors[ii];
-      const msg = 'line ' + error.line + ', col ' + error.col + ': ' + error.message;
+      let msg = 'line ' + error.line + ', col ' + error.col + ': ' + error.message;
       if (error.specUrl !== null) {
         msg += ' (see ' + error.specUrl + ')';
       }
