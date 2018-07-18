@@ -23,6 +23,12 @@ functions:
       - http:
           path: updateReport
           method: post
+  deleteReport:
+    handler: handler.deleteReport
+    events:
+      - http:
+          path: deleteReport
+          method: post
 
 resources:
   Resources:

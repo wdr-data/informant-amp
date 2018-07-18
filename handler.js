@@ -117,6 +117,49 @@ async function getData(id) {
     }
 }
 
+module.exports.deleteReport = async function(event) {
+    let payload;
+    try {
+        payload = JSON.parse(event.body);
+    } catch(e) {
+        return new BadRequestError('Invalid JSON payload').toLambdaResponse();
+    }
+    if (!payload) {
+        return new BadRequestError('Missing JSON payload').toLambdaResponse();
+    }
+    if (!payload.id) {
+        return new BadRequestError('ID is missing').toLambdaResponse();
+    }
+    if (!payload.created) {
+        return new BadRequestError('Creation date is missing').toLambdaResponse();
+    }
+
+    // make sure the report is actually deleted
+    try {
+        await getData(payload.id);
+        return new BadRequestError('Report still exists in API').toLambdaResponse();
+    } catch(e) { }
+
+    const dateCreated = new Date(payload.created);
+    const urlBase = `${dateCreated.getFullYear()}/${dateCreated.getMonth()+1}`;
+
+    const list = await s3.listObjects({
+        Prefix: `${urlBase}/${payload.id}-`,
+    }).promise();
+
+    for (e of list.Contents) {
+        await storeMonthSitemap(urlBase, e.Key, payload, dateCreated, true);
+        await s3.deleteObject({
+            Key: e.Key,
+        }).promise();
+    }
+
+    return {
+        body: JSON.stringify({success: true}),
+        statusCode: 200,
+    }
+}
+
 async function storeArticle(content, urlBase, url, id) {
     const defaultOpts = {
         Body: content,
@@ -179,7 +222,7 @@ async function loadSitemap(urlBase) {
     return sitemap;
 }
 
-async function storeMonthSitemap(urlBase, url, payload, dateModified) {
+async function storeMonthSitemap(urlBase, url, payload, dateModified, deleteUrl) {
     const sitemapMonth = await loadSitemap(urlBase);
     const sitemapEntry = {
         loc: { '_text': urlOrigin.concat(url) },
@@ -191,7 +234,7 @@ async function storeMonthSitemap(urlBase, url, payload, dateModified) {
         if (!entry.loc._text.startsWith(`${urlOrigin}${urlBase}/${payload.id}-`)) {
             return entry;
         }
-        if (entry.loc._text !== sitemapEntry.loc._text) {
+        if (entry.loc._text !== sitemapEntry.loc._text || deleteUrl) {
             return null;
         }
         replaced = true;
@@ -200,8 +243,16 @@ async function storeMonthSitemap(urlBase, url, payload, dateModified) {
             ...sitemapEntry,
         };
     }).filter(e => !!e);
-    if (!replaced) {
+    if (!replaced && !deleteUrl) {
         updatedUrls.push(sitemapEntry);
+    }
+
+    if (updatedUrls.length === 0) {
+        storeIndexSitemap(urlBase, true);
+        await s3.deleteObject({
+            Key: `${urlBase}/sitemap.xml`,
+        }).promise();
+        return;
     }
 
     sitemapMonth.urlset.url = updatedUrls;
@@ -214,7 +265,7 @@ async function storeMonthSitemap(urlBase, url, payload, dateModified) {
     }).promise();
 }
 
-async function storeIndexSitemap(urlBase) {
+async function storeIndexSitemap(urlBase, deleteSitemap) {
     const sitemapIndex = await loadSitemap();
     const sitemapEntry = {
         loc: { '_text': `${urlOrigin}${urlBase}/sitemap.xml` },
@@ -225,13 +276,16 @@ async function storeIndexSitemap(urlBase) {
         if (entry.loc._text !== `${urlOrigin}${urlBase}/sitemap.xml`) {
             return entry;
         }
+        if (deleteSitemap) {
+            return null;
+        }
         replaced = true;
         return {
             ...entry,
             ...sitemapEntry,
         };
-    });
-    if (!replaced) {
+    }).filter(e => !!e);
+    if (!replaced && !deleteSitemap) {
         updatedSitemaps.push(sitemapEntry);
     }
 
