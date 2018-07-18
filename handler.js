@@ -56,7 +56,7 @@ module.exports.updateReport = async function(event) {
         ...apiData,
         url,
     });
-    const validator = await amphtmlValidater.getInstance();
+    const validator = await amphtmlValidator.getInstance();
     const result = validator.validateString(out);
 
     ((result.status === 'PASS') ? console.log : console.error)(result.status);
