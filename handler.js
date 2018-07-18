@@ -7,6 +7,8 @@ const slugify = require('slugify');
 const { js2xml, xml2js } = require('xml-js');
 const amphtmlValidator = require('amphtml-validator');
 
+const urlOrigin = `http://${process.env.BUCKET_NAME}.s3-website.eu-central-1.amazonaws.com/`;
+
 const LambdaResponseMixin = (Base) =>
     class extends Base {
         toLambdaResponse() {
@@ -73,6 +75,8 @@ module.exports.updateReport = async function(event) {
     await storeArticle(out, urlBase, url, payload.id);
 
     await storeMonthSitemap(urlBase, url, payload, dateModified);
+
+    await storeIndexSitemap(urlBase);
 
     if (result.status !== 'PASS') {
         throw 'AMP validation failed';
@@ -164,7 +168,6 @@ async function storeMonthSitemap(urlBase, url, payload, dateModified) {
         sitemapMonth.urlset.url = [sitemapMonth.urlset.url];
     }
 
-    const urlOrigin = `http://${process.env.BUCKET_NAME}.s3-website.eu-central-1.amazonaws.com/`;
     const sitemapEntry = {
         loc: { '_text': urlOrigin.concat(url) },
         lastmod: { '_text': dateModified.toISOString() },
@@ -175,7 +178,7 @@ async function storeMonthSitemap(urlBase, url, payload, dateModified) {
         if (!entry.loc._text.startsWith(`${urlOrigin}${urlBase}/${payload.id}-`)) {
             return entry;
         }
-        if (entry.loc._text !== urlOrigin.concat(url)) {
+        if (entry.loc._text !== sitemapEntry.loc._text) {
             return null;
         }
         replaced = true;
@@ -193,6 +196,64 @@ async function storeMonthSitemap(urlBase, url, payload, dateModified) {
     await s3.putObject({
         Key: `${urlBase}/sitemap.xml`,
         Body: sitemapMonthXML,
+        ContentType: 'application/xml',
+        ACL: 'public-read',
+    }).promise();
+}
+
+async function storeIndexSitemap(urlBase) {
+    let sitemapExisting;
+    try {
+        sitemapExisting = (await s3.getObject({Key: `sitemap.xml`}).promise()).Body;
+    } catch(e) {
+        if (e.code !== 'NoSuchKey') {
+            throw e;
+        }
+    }
+    let sitemapIndex = !sitemapExisting
+        ? {
+            _declaration: {
+                _attributes: {
+                    version: '1.0',
+                    encoding: 'utf-8',
+                },
+            },
+            sitemapindex: {
+                _attributes: {
+                    xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9",
+                },
+                sitemap: [],
+            },
+        }
+        : xml2js(sitemapExisting, { compact: true });
+    if (!Array.isArray(sitemapIndex.sitemapindex.sitemap)) {
+        sitemapIndex.sitemapindex.sitemap = [sitemapIndex.sitemapindex.sitemap];
+    }
+
+    const sitemapEntry = {
+        loc: { '_text': `${urlOrigin}${urlBase}/sitemap.xml` },
+        lastmod: { '_text': new Date().toISOString() },
+    };
+    let replaced = false;
+    const updatedSitemaps = sitemapIndex.sitemapindex.sitemap.map((entry) => {
+        if (entry.loc._text !== `${urlOrigin}${urlBase}/sitemap.xml`) {
+            return entry;
+        }
+        replaced = true;
+        return {
+            ...entry,
+            ...sitemapEntry,
+        };
+    });
+    if (!replaced) {
+        updatedSitemaps.push(sitemapEntry);
+    }
+
+    sitemapIndex.sitemapindex.sitemap = updatedSitemaps;
+    const sitemapIndexXML = js2xml(sitemapIndex, { compact: true });
+    await s3.putObject({
+        Key: `sitemap.xml`,
+        Body: sitemapIndexXML,
         ContentType: 'application/xml',
         ACL: 'public-read',
     }).promise();
