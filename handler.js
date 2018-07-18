@@ -46,8 +46,9 @@ module.exports.updateReport = async function(event) {
     const apiData = await getData(payload.id);
     const { report, fragments } = apiData;
 
-    const date = new Date(report.created);
-    const urlBase = `${date.getFullYear()}/${date.getMonth()+1}`;
+    const dateCreated = new Date(report.created);
+    const dateModified = new Date(report.modified);
+    const urlBase = `${dateCreated.getFullYear()}/${dateCreated.getMonth()+1}`;
     const url = `${urlBase}/${payload.id}-${slugify(report.headline)}`;
 
     const template = (await fs.readFile('template.html.handlebars')).toString();
@@ -71,7 +72,7 @@ module.exports.updateReport = async function(event) {
 
     await storeArticle(out, urlBase, url, payload.id);
 
-    await storeMonthSitemap(urlBase, url, payload, date);
+    await storeMonthSitemap(urlBase, url, payload, dateModified);
 
     if (result.status !== 'PASS') {
         throw 'AMP validation failed';
@@ -134,7 +135,7 @@ async function storeArticle(content, urlBase, url, id) {
     }
 }
 
-async function storeMonthSitemap(urlBase, url, payload, date) {
+async function storeMonthSitemap(urlBase, url, payload, dateModified) {
     let sitemapExisting;
     try {
         sitemapExisting = (await s3.getObject({Key: `${urlBase}/sitemap.xml`}).promise()).Body;
@@ -166,7 +167,7 @@ async function storeMonthSitemap(urlBase, url, payload, date) {
     const urlOrigin = `http://${process.env.BUCKET_NAME}.s3-website.eu-central-1.amazonaws.com/`;
     const sitemapEntry = {
         loc: { '_text': urlOrigin.concat(url) },
-        lastmod: { '_text': date.toISOString() },
+        lastmod: { '_text': dateModified.toISOString() },
         changefreq: { '_text': 'never' },
     };
     let replaced = false;
