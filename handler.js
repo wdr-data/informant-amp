@@ -155,12 +155,12 @@ async function storeMonthSitemap(urlBase, url, payload, date) {
                 _attributes: {
                     xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9",
                 },
-                urls: [],
+                url: [],
             },
         }
         : xml2js(sitemapExisting, { compact: true });
-    if (!Array.isArray(sitemapMonth.urlset.urls)) {
-        sitemapMonth.urlset.urls = [sitemapMonth.urlset.urls];
+    if (!Array.isArray(sitemapMonth.urlset.url)) {
+        sitemapMonth.urlset.url = [sitemapMonth.urlset.url];
     }
 
     const urlOrigin = `http://${process.env.BUCKET_NAME}.s3-website.eu-central-1.amazonaws.com/`;
@@ -170,7 +170,7 @@ async function storeMonthSitemap(urlBase, url, payload, date) {
         changefreq: { '_text': 'never' },
     };
     let replaced = false;
-    const updatedUrls = sitemapMonth.urlset.urls.map((entry) => {
+    const updatedUrls = sitemapMonth.urlset.url.map((entry) => {
         if (!entry.loc._text.startsWith(`${urlOrigin}${urlBase}/${payload.id}-`)) {
             return entry;
         }
@@ -187,7 +187,7 @@ async function storeMonthSitemap(urlBase, url, payload, date) {
         updatedUrls.push(sitemapEntry);
     }
 
-    sitemapMonth.urlset.urls = updatedUrls;
+    sitemapMonth.urlset.url = updatedUrls;
     const sitemapMonthXML = js2xml(sitemapMonth, { compact: true });
     await s3.putObject({
         Key: `${urlBase}/sitemap.xml`,
