@@ -5,6 +5,7 @@ const imageSize = require('probe-image-size');
 const aws = require('aws-sdk');
 const slugify = require('slugify');
 const { js2xml, xml2js } = require('xml-js');
+const amphtmlValidator = require('amphtml-validator');
 
 const LambdaResponseMixin = (Base) =>
     class extends Base {
@@ -55,9 +56,26 @@ module.exports.updateReport = async function(event) {
         ...apiData,
         url,
     });
+    const validator = await amphtmlValidater.getInstance();
+    const result = validator.validateString(out);
+
+    ((result.status === 'PASS') ? console.log : console.error)(result.status);
+    for (var ii = 0; ii < result.errors.length; ii++) {
+      var error = result.errors[ii];
+      var msg = 'line ' + error.line + ', col ' + error.col + ': ' + error.message;
+      if (error.specUrl !== null) {
+        msg += ' (see ' + error.specUrl + ')';
+      }
+      ((error.severity === 'ERROR') ? console.error : console.warn)(msg);
+    }
+
     await storeArticle(out, urlBase, url, payload.id);
 
     await storeMonthSitemap(urlBase, url, payload, date);
+
+    if (result.status !== 'PASS') {
+        throw 'AMP validation failed';
+    }
 
     return {
         body: JSON.stringify({success: true}),
