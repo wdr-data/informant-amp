@@ -45,7 +45,13 @@ module.exports.updateReport = async function(event) {
         return new BadRequestError('ID is missing').toLambdaResponse();
     }
 
-    const apiData = await getData(payload.id);
+    let apiData;
+    try {
+        apiData = await getData(payload.id);
+    } catch(e) {
+        return new BadRequestError(e).toLambdaResponse();
+    }
+
     const { report, fragments } = apiData;
 
     const dateCreated = new Date(report.created);
