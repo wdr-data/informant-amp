@@ -6,7 +6,8 @@ provider:
   region: eu-central-1
   environment:
     BUCKET_NAME: ${self:custom.bucket}
-    CMS_API_URL: ${file(.env.yml):CMS_API_URL}
+    CMS_API_URL: ${self:custom.env.CMS_API_URL}
+    PUBLIC_URL: ${self:custom.env.PUBLIC_URL}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -47,7 +48,8 @@ resources:
           IndexDocument: index.html
 
 custom:
-  bucket: informant-amp-web-${file(.env.yml):DEPLOY_ALIAS,opt:stage}
+  env: ${file(env.js):fetch}
+  bucket: informant-amp-web-${file(env.js):getStage}
 
 plugins:
   - serverless-offline
