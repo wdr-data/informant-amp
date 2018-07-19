@@ -8,8 +8,9 @@ node_js:
 cache: yarn
 
 env:
-  - ENV_BUCKET_NAME=wdr-informant-amp-env
-  - AWS_REGION=eu-central-1
+  global:
+    - ENV_BUCKET_NAME=wdr-informant-amp-env
+    - AWS_REGION=eu-central-1
 
 script:
   - if [ "$TRAVIS_BRANCH" = "master" ]; then SLS_STAGE=staging yarn build; fi
