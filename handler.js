@@ -31,7 +31,7 @@ class BadRequestError extends LambdaResponseMixin(Error) {
 
 const s3 = new aws.S3({params: {Bucket: process.env.BUCKET_NAME}});
 
-module.exports.updateHomepage = async function(event) {
+module.exports.updateIndex = async function(event) {
     let payload;
     try {
         payload = JSON.parse(event.body);
