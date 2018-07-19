@@ -4,10 +4,7 @@ provider:
   name: aws
   runtime: nodejs8.10
   region: eu-central-1
-  environment:
-    BUCKET_NAME: ${self:custom.bucket}
-    CMS_API_URL: ${self:custom.env.CMS_API_URL}
-    PUBLIC_URL: ${self:custom.env.PUBLIC_URL}
+  environment: ${file(env.js):fetch}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -15,7 +12,7 @@ provider:
         - s3:GetObject
         - s3:PutObjectAcl
         - s3:ListBucket
-      Resource: "arn:aws:s3:::${self:custom.bucket}/*"
+      Resource: "arn:aws:s3:::${file(env.js):getBucketName}/*"
 
 functions:
   updateReport:
@@ -42,14 +39,10 @@ resources:
     HtmlBucket:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: ${self:custom.bucket}
+        BucketName: ${file(env.js):getBucketName}
         AccessControl: 'PublicRead'
         WebsiteConfiguration:
           IndexDocument: index.html
-
-custom:
-  env: ${file(env.js):fetch}
-  bucket: informant-amp-web-${file(env.js):getStage}
 
 plugins:
   - serverless-offline
