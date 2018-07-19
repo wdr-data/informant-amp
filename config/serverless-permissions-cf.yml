@@ -1,0 +1,132 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Cloudformation stack to manage permission to deploy a serverless service'
+
+Parameters:
+  ServiceName:
+    Description: Name of the Service you want to deploy
+    Type: String
+
+Resources:
+  ## Managed policies
+  ServerlessDeployCFPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action: 'cloudformation:ValidateTemplate'
+            Resource: '*'
+
+          - Effect: Allow
+            Action:
+            - 'cloudformation:Describe*'
+            - 'cloudformation:List*'
+            - 'cloudformation:Get*'
+            - 'cloudformation:PreviewStackUpdate'
+            - 'cloudformation:CreateStack'
+            - 'cloudformation:UpdateStack'
+            Resource:
+            - !Sub 'arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/${ServiceName}-*'
+
+  ServerlessDeployS3Policy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+            - 's3:*'
+            Resource:
+            - !Sub 'arn:aws:s3:::wdr-${ServiceName}-*'
+
+          - Effect: Allow
+            Action:
+            - 's3:*'
+            Resource:
+            - !Sub 'arn:aws:s3:::wdr-${ServiceName}-*/*'
+
+  ServerlessDeployLogsPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+            - 'logs:DescribeLogGroups'
+            Resource: !Sub 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group::log-stream:*'
+
+          - Effect: Allow
+            Action:
+            - 'logs:CreateLogGroup'
+            - 'logs:CreateLogStream'
+            - 'logs:DeleteLogGroup'
+            - 'logs:DeleteLogStream'
+            - 'logs:DescribeLogStreams'
+            - 'logs:FilterLogEvents'
+            - 'logs:PutMetricFilter'
+            Resource: !Sub 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*:log-stream:*'
+
+  ServerlessDeployIAMPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+            - 'iam:GetRole'
+            - 'iam:PassRole'
+            - 'iam:CreateRole'
+            - 'iam:DeleteRole'
+            - 'iam:DetachRolePolicy'
+            - 'iam:PutRolePolicy'
+            - 'iam:AttachRolePolicy'
+            - 'iam:DeleteRolePolicy'
+            Resource:
+            - !Sub 'arn:aws:iam::${AWS::AccountId}:role/${ServiceName}-*'
+
+  ServerlessDeployLambdaPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+            - 'apigateway:GET'
+            - 'apigateway:POST'
+            - 'apigateway:PUT'
+            - 'apigateway:DELETE'
+            Resource:
+            - !Sub 'arn:aws:apigateway:${AWS::Region}::/restapis'
+            - !Sub 'arn:aws:apigateway:${AWS::Region}::/restapis/*'
+
+          - Effect: Allow
+            Action:
+            - 'lambda:*'
+            Resource:
+            - !Sub 'arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${ServiceName}-*'
+
+          - Effect: Allow
+            Action:
+            - 'events:Put*'
+            - 'events:Remove*'
+            - 'events:Delete*'
+            - 'events:Describe*'
+            Resource:
+            - !Sub 'arn:aws:events:${AWS::Region}:${AWS::AccountId}:rule/${ServiceName}-*'
+
+  ServerlessDeployGroup:
+    Type: AWS::IAM::Group
+    Properties:
+      GroupName: !Sub '${ServiceName}-deploy'
+      ManagedPolicyArns:
+        - !Ref ServerlessDeployCFPolicy
+        - !Ref ServerlessDeployLambdaPolicy
+        - !Ref ServerlessDeployLogsPolicy
+        - !Ref ServerlessDeployIAMPolicy
+        - !Ref ServerlessDeployS3Policy
