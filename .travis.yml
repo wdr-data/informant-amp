@@ -8,8 +8,8 @@ node_js:
 cache: yarn
 
 script:
-  - if [$TRAVIS_BRANCH == "master"]; then SLS_STAGE=staging yarn build
-  - if [$TRAVIS_BRANCH == "production"]; then SLS_STAGE=prod yarn build
+  - if [$TRAVIS_BRANCH == "master"]; then SLS_STAGE=staging yarn build; fi
+  - if [$TRAVIS_BRANCH == "production"]; then SLS_STAGE=prod yarn build; fi
 
 deploy:
   - provider: script
