@@ -8,25 +8,31 @@
     <style amp-custom>
       body {
         font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
-        padding: 1rem 2rem;
+        padding: 1rem;
+      }
+      a {
+        color: #E00087;
       }
       .container {
         max-width: 600px;
         margin-left: auto;
         margin-right: auto;
       }
-      header {
+      .brand-background {
         display: flex;
-        justify-content: flex-start;
-        margin-bottom: .5rem;
+        justify-content: center;
+        margin-bottom: 1rem;
         max-width: 900px;
         background-color: #f09;
         border-radius: 5px;
         font-weight: bold;
       }
-      .logo {
+      div.logo {
         height: 2.5rem;
+        width: 2.5rem;
         padding: .5rem;
+      }
+      svg.logo {
         border-radius: 50%;
       }
       .brand {
@@ -38,18 +44,21 @@
       }
       h1 {
         margin-top: 2rem;
+        font-size: 2.5rem;
+        text-transform: uppercase;
       }
       .fragments {
         display: flex;
         flex-direction: column;
       }
       .bubble {
-        padding: 1rem;
+        padding: 0.75rem 1rem;
         border-radius: 1rem;
         display: inline-block;
         max-width: 90%;
         margin-top: 2rem;
         margin-bottom: 0;
+        line-height: 1.25;
       }
       .fragments > *:first-child {
         margin-top: 0;
@@ -84,11 +93,91 @@
         height: auto;
       }
       footer {
-        margin-top: 3rem;
+        margin-top: 2rem;
         margin-bottom: 1rem;
+        display: block;
+      }
+      footer .seperator {
+        line-height: 0;
+        font-size: 3rem;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 1rem;
+        margin-bottom: 3rem;
+        display: block;
+        width: 100%;
+        color: #555;
+      }
+      footer .social {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+      footer .description {
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-align: center;
+        display: block;
+        margin-bottom: 1rem;
+      }
+      footer .links {
         display: flex;
         justify-content: space-between;
       }
+
+      /*---------------------------
+  Blue Button
+---------------------------*/
+
+      a.fb-message-blue {
+        font-size: 1rem;
+        font-family: Helvetica, Arial, sans-serif;
+        text-decoration: none;
+        color: #fff;
+        background-color: #0084ff;
+        border: 1px solid #0084ff;
+        height: 2.2rem;
+        line-height: 2.2rem;
+        border-radius: 3px;
+        outline: none;
+        display: inline-block;
+        -webkit-transition: all ease .15s;
+        -o-transition: all ease .15s;
+        -moz-transition: all ease .15s;
+        transition: all ease .15s;
+        margin: auto;
+        padding-right: .5rem;
+      }
+      a.fb-message-blue:hover {
+        background-color: #2093ff;
+        border: 1px solid #2093ff;
+        -webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);
+        -moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);
+        box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);
+        /* transform: scale(1.15); */ /* uncomment to add zoom effect */
+      }
+      a.fb-message-blue:focus {
+        background-color: #0084ff;
+        border: 1px solid #0084ff;
+        -webkit-box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.3);
+        -moz-box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.3);
+        box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.3);
+      }
+
+      .fb-message-blue i {
+        background-image: url('https://i.imgur.com/hjwozo7.png');
+        background-repeat: no-repeat;
+        background-size: 17px;
+        background-position: 7px 9px;
+        top: -1px;
+        height: 18px;
+        width: 17px;
+        padding: 10px 7px;
+        float: left;
+      }
+
     </style>
 
     <script type="application/ld+json">
@@ -138,7 +227,8 @@
   </head>
   <body>
     <header class="container">
-        <svg class="logo" version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9600 9600" preserveAspectRatio="xMidYMid meet">
+      <div class="brand-background">
+        <div class="logo"><svg class="logo" version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9600 9600" preserveAspectRatio="xMidYMid meet">
             <g id="layer101" fill="#000000" stroke="none">
              <path d="M0 4800 l0 -4800 4800 0 4800 0 0 4800 0 4800 -4800 0 -4800 0 0 -4800z"/>
             </g>
@@ -150,8 +240,9 @@
              <path d="M0 4800 l0 -4800 4800 0 4800 0 0 4800 0 4800 -4800 0 -4800 0 0 -4800z m5144 4065 c529 -47 1004 -179 1466 -409 1222 -609 2054 -1769 2234 -3116 169 -1259 -260 -2525 -1160 -3424 -766 -767 -1802 -1196 -2884 -1196 -1083 0 -2118 429 -2884 1196 -767 766 -1196 1802 -1196 2884 0 1374 687 2648 1838 3408 761 503 1682 737 2586 657z"/>
              <path d="M4040 6920 l0 -1090 -205 0 c-150 0 -205 -3 -205 -12 0 -9 102 -389 166 -615 l15 -53 499 0 500 0 0 1430 0 1430 -385 0 -385 0 0 -1090z"/>
             </g>
-        </svg>
+        </svg></div>
         <p class="brand">1LIVE Informant</p>
+      </div>
     </header>
     <article class="container">
       <h1>{{report.headline}}</h1>
@@ -272,8 +363,32 @@
       </section>
     </article>
     <footer class="container">
-      <span>© WDR 2018</span>
-      <a href="https://www1.wdr.de/radio/1live/einslive-impressum-100.html">Impressum</a>
+      <div class="brand-background">
+      <div class="logo"><svg class="logo" version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9600 9600" preserveAspectRatio="xMidYMid meet">
+        <g id="layer101" fill="#000000" stroke="none">
+          <path d="M0 4800 l0 -4800 4800 0 4800 0 0 4800 0 4800 -4800 0 -4800 0 0 -4800z"/>
+        </g>
+        <g id="layer102" fill="#ff0099" stroke="none">
+          <path d="M0 4800 l0 -4800 4800 0 4800 0 0 4800 0 4800 -4800 0 -4800 0 0 -4800z m5024 4074 c9 -3 21 -25 27 -48 6 -22 73 -270 149 -551 76 -280 211 -778 300 -1105 89 -327 215 -791 280 -1030 65 -239 173 -637 240 -885 68 -247 172 -630 231 -849 60 -220 109 -405 109 -413 0 -11 -225 -13 -1357 -11 l-1357 3 -52 190 c-28 105 -107 393 -174 640 -67 248 -175 646 -240 885 -65 239 -191 703 -280 1030 -89 327 -210 775 -270 995 -60 220 -112 412 -115 426 -6 24 1 31 87 86 542 351 1177 568 1833 627 153 14 561 21 589 10z m391 -5218 c451 -100 815 -416 968 -842 52 -145 72 -265 72 -439 0 -235 -40 -401 -147 -606 -178 -343 -502 -589 -888 -674 -117 -26 -347 -31 -472 -10 -488 80 -886 419 -1038 886 -44 134 -61 244 -61 404 0 227 42 401 143 597 186 363 526 614 933 689 121 23 377 20 490 -5z"/>
+          <path d="M4040 6920 l0 -1090 -205 0 c-150 0 -205 -3 -205 -12 0 -9 102 -389 166 -615 l15 -53 499 0 500 0 0 1430 0 1430 -385 0 -385 0 0 -1090z"/>
+        </g>
+        <g id="layer103" fill="#ffffff" stroke="none">
+          <path d="M0 4800 l0 -4800 4800 0 4800 0 0 4800 0 4800 -4800 0 -4800 0 0 -4800z m5144 4065 c529 -47 1004 -179 1466 -409 1222 -609 2054 -1769 2234 -3116 169 -1259 -260 -2525 -1160 -3424 -766 -767 -1802 -1196 -2884 -1196 -1083 0 -2118 429 -2884 1196 -767 766 -1196 1802 -1196 2884 0 1374 687 2648 1838 3408 761 503 1682 737 2586 657z"/>
+          <path d="M4040 6920 l0 -1090 -205 0 c-150 0 -205 -3 -205 -12 0 -9 102 -389 166 -615 l15 -53 499 0 500 0 0 1430 0 1430 -385 0 -385 0 0 -1090z"/>
+        </g>
+      </svg></div>
+      <p class="brand">1LIVE Informant</p>
+    </div>
+      <div class="social">
+        <a href="https://www.messenger.com/t/1LIVE.Informant/"
+           class="fb-message-blue"
+           target="_blank">
+        <i></i> Im Facebook-Messenger nutzen </a></div>
+      <span class="description">Deine Infos aus NRW und der digitalen Welt. Täglich aufs Handy.</span>
+      <div class="links">
+        <span>© WDR 2018</span>
+        <a href="https://www1.wdr.de/radio/1live/einslive-impressum-100.html">Impressum</a>
+      </div>
     </footer>
     <amp-animation id="bubbleTransition"
                    layout="nodisplay"
