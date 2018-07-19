@@ -29,6 +29,12 @@ functions:
       - http:
           path: deleteReport
           method: post
+  updateHomepage:
+    handler: handler.updateHomepage
+    events:
+      - http:
+          path: updateHomepage
+          method: post
 
 resources:
   Resources:

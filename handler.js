@@ -31,6 +31,53 @@ class BadRequestError extends LambdaResponseMixin(Error) {
 
 const s3 = new aws.S3({params: {Bucket: process.env.BUCKET_NAME}});
 
+module.exports.updateHomepage = async function(event) {
+    let payload;
+    try {
+        payload = JSON.parse(event.body);
+    } catch(e) {
+        return new BadRequestError('Invalid JSON payload').toLambdaResponse();
+    }
+    if (!payload) {
+        return new BadRequestError('Missing JSON payload').toLambdaResponse();
+    }
+    if (!payload.id) {
+        return new BadRequestError('ID is missing').toLambdaResponse();
+    }
+
+    let apiData;
+    try {
+        apiData = await getPush(payload.id);
+    } catch(e) {
+        return new BadRequestError(e).toLambdaResponse();
+    }
+
+    const template = (await fs.readFile('templateIndex.html.handlebars')).toString();
+    handlebars.registerHelper( "makeURL", ( id, created, headline ) => {
+        const dateCreated = new Date(created);
+        return `${urlOrigin}${dateCreated.getFullYear()}/${dateCreated.getMonth()+1}/${id}-${slugify(headline)}`;
+    });
+    const out = handlebars.compile(template)({
+        ...apiData,
+    });
+
+    const defaultOpts = {
+        Body: out,
+        ContentType: "text/html",
+        ACL: "public-read",
+    };
+
+    await s3.putObject({
+        ...defaultOpts,
+        Key: 'index.html',
+    }).promise();
+
+    return {
+        body: JSON.stringify({success: true}),
+        statusCode: 200,
+    }
+};
+
 module.exports.updateReport = async function(event) {
     let payload;
     try {
@@ -96,6 +143,15 @@ module.exports.updateReport = async function(event) {
         statusCode: 200,
     }
 };
+
+async function getPush(id) {
+    const push = await request({
+        uri: `${process.env.CMS_API_URL}v1/pushes/${id}`,
+        json: true,
+    });
+
+    return push;
+}
 
 async function getData(id) {
     const report = await request({
