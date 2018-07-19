@@ -4,6 +4,7 @@ provider:
   name: aws
   runtime: nodejs8.10
   region: eu-central-1
+  stage: ${file(env.js):getStage}
   environment: ${file(env.js):fetch}
   iamRoleStatements:
     - Effect: Allow
