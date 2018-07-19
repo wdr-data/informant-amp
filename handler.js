@@ -61,6 +61,9 @@ module.exports.updateReport = async function(event) {
 
     const template = (await fs.readFile('template.html.handlebars')).toString();
     handlebars.registerHelper( "joinTags", ( tagList ) => tagList.map(( e ) => e.name).join( "," ));
+    handlebars.registerHelper( "getImage", report.media ? report.media: 
+            fragments.map((fragment) => fragment.media).filter(media=>media) ? 
+            fragments.map((fragment) => fragment.media).filter(media=>media)[0] : null)
     const out = handlebars.compile(template)({
         ...apiData,
         url,
