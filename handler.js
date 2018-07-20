@@ -64,13 +64,14 @@ module.exports.updateIndex = async function(event) {
     });
 
     const defaultOpts = {
-        Body: out,
         ContentType: "text/html",
         ACL: "public-read",
+        CacheControl: "max-age=300",
     };
 
     await s3.putObject({
         ...defaultOpts,
+        Body: out,
         Key: 'index.html',
     }).promise();
 
@@ -325,6 +326,7 @@ async function storeMonthSitemap(urlBase, url, payload, dateModified, deleteUrl)
         Body: sitemapMonthXML,
         ContentType: 'application/xml',
         ACL: 'public-read',
+        CacheControl: "max-age=0",
     }).promise();
 }
 
@@ -359,5 +361,6 @@ async function storeIndexSitemap(urlBase, deleteSitemap) {
         Body: sitemapIndexXML,
         ContentType: 'application/xml',
         ACL: 'public-read',
+        CacheControl: "max-age=0",
     }).promise();
 }
