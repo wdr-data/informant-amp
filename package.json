@@ -18,7 +18,7 @@
     "xml-js": "^1.6.3"
   },
   "devDependencies": {
-    "@wdr-data/s3-env-config": "0.0.2",
+    "@wdr-data/s3-env-config": "0.0.3",
     "babel-cli": "^6.26.0",
     "serverless": "^1.27.2",
     "serverless-offline": "^3.23.0"

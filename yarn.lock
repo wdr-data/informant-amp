@@ -14,9 +14,9 @@
   version "0.10.2"
   resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-0.10.2.tgz#d7c79acbaa17453b6681c80c34b38fcb10c4c08c"
 
-"@wdr-data/s3-env-config@0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@wdr-data/s3-env-config/-/s3-env-config-0.0.2.tgz#bc33827083105a44f878e9ef829db406fdce99c3"
+"@wdr-data/s3-env-config@0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@wdr-data/s3-env-config/-/s3-env-config-0.0.3.tgz#f6b8a2b10a0b418ff96e69c53aeddd3968c10891"
   dependencies:
     aws-sdk "^2.277.1"
     minimist "^1.2.0"
