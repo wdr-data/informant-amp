@@ -114,6 +114,9 @@
         display: flex;
         justify-content: space-between;
       }
+      .sitemap {
+        display: none;
+      }
 
       /*---------------------------
   Blue Button
@@ -242,9 +245,10 @@
     <footer class="container">
       <div class="links">
         <span>© WDR 2018</span>
-        <a href="{{urlOrigin}}sitemap.xml">Sitemap</a>
         <a href="https://www1.wdr.de/radio/1live/einslive-impressum-100.html">Impressum</a>
       </div>
+
+      <a href="{{urlOrigin}}sitemap.xml" class="sitemap">Sitemap</a>
     </footer>
   </body>
 </html>
