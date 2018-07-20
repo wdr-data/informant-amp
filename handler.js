@@ -7,7 +7,7 @@ const slugify = require('slugify');
 const { js2xml, xml2js } = require('xml-js');
 const amphtmlValidator = require('amphtml-validator');
 
-const urlOrigin = `http://${process.env.BUCKET_NAME}.s3-website.eu-central-1.amazonaws.com/`;
+const urlOrigin = process.env.PUBLIC_URL;
 
 const LambdaResponseMixin = (Base) =>
     class extends Base {
@@ -59,6 +59,7 @@ module.exports.updateIndex = async function(event) {
     });
     const out = handlebars.compile(template)({
         ...apiData,
+      urlOrigin,
     });
 
     const defaultOpts = {
@@ -114,6 +115,7 @@ module.exports.updateReport = async function(event) {
     const out = handlebars.compile(template)({
         ...apiData,
         url,
+        urlOrigin,
     });
     const validator = await amphtmlValidator.getInstance();
     const result = validator.validateString(out);

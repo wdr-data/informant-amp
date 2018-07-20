@@ -2,8 +2,8 @@
 <html ⚡ lang="de">
   <head>
     <meta charset="utf-8">
-    <title>{{report.headline}}</title>
-    <link rel="canonical" href="/{{url}}">
+    <title>1LIVE Informant</title>
+    <link rel="canonical" href="{{urlOrigin}}">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <style amp-custom>
       body {
@@ -180,6 +180,11 @@
           "width": 117
           }
       },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{urlOrigin}}"
+      },
+      "url": "{{urlOrigin}}",
       "isAccessibleForFree": true,
       "inLanguage": {
       	"@type": "Language",
@@ -235,6 +240,7 @@
     <footer class="container">
       <div class="links">
         <span>© WDR 2018</span>
+        <a href="{{urlOrigin}}sitemap.xml">Sitemap</a>
         <a href="https://www1.wdr.de/radio/1live/einslive-impressum-100.html">Impressum</a>
       </div>
     </footer>
