@@ -6,6 +6,7 @@ const aws = require('aws-sdk');
 const slugify = require('slugify');
 const { js2xml, xml2js } = require('xml-js');
 const amphtmlValidator = require('amphtml-validator');
+const moment = require('moment-timezone');
 
 const urlOrigin = process.env.PUBLIC_URL;
 
@@ -111,11 +112,12 @@ module.exports.updateReport = async function(event) {
     handlebars.registerHelper( "joinTags", ( tagList ) => tagList.map(( e ) => e.name).join( "," ));
     handlebars.registerHelper( "getImage", report.media ? report.media: 
             fragments.map((fragment) => fragment.media).filter(media=>media) ? 
-            fragments.map((fragment) => fragment.media).filter(media=>media)[0] : null)
+            fragments.map((fragment) => fragment.media).filter(media=>media)[0] : null);
     const out = handlebars.compile(template)({
         ...apiData,
         url,
         urlOrigin,
+        dateCreated: moment(dateCreated).tz('Europe/Berlin').format('DD.MM.YYYY'),
     });
     const validator = await amphtmlValidator.getInstance();
     const result = validator.validateString(out);
