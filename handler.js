@@ -219,7 +219,7 @@ module.exports.deleteReport = async function(event) {
         body: JSON.stringify({success: true}),
         statusCode: 200,
     }
-}
+};
 
 async function storeArticle(content, urlBase, url, id) {
     const defaultOpts = {
