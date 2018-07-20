@@ -326,54 +326,54 @@
           {{report.text}}
         </p>
         {{#fragments}}
-          {{#question}}
-          <p id="bubble-user-{{../id}}" class="bubble bubble-user bubble-animated">
-            <amp-position-observer on="enter:bubbleUserTransition-{{../id}}.start"
+          {{#if question}}
+          <p id="bubble-user-{{id}}" class="bubble bubble-user bubble-animated">
+            <amp-position-observer on="enter:bubbleUserTransition-{{id}}.start"
                                    layout="nodisplay"
                                    once>
             </amp-position-observer>
-            <amp-animation id="bubbleUserTransition-{{../id}}"
+            <amp-animation id="bubbleUserTransition-{{id}}"
                            layout="nodisplay">
               <script type="application/json">
                       {
-                          "selector": "#bubble-user-{{../id}}",
+                          "selector": "#bubble-user-{{id}}",
                           "animation": "bubbleTransition"
                       }
               </script>
             </amp-animation>
-            {{.}}
+            {{question}}
           </p>
-          {{/question}}
-          {{#media}}
-          <p id="bubble-image-{{../id}}" class="bubble-image bubble-animated">
-            <amp-position-observer on="enter:imageBotTransition-{{../id}}.start"
+          {{/if}}
+          {{#if media}}
+          <p id="bubble-image-{{id}}" class="bubble-image bubble-animated">
+            <amp-position-observer on="enter:imageBotTransition-{{id}}.start"
                                    layout="nodisplay"
                                    once>
             </amp-position-observer>
-            <amp-animation id="imageBotTransition-{{../id}}"
+            <amp-animation id="imageBotTransition-{{id}}"
                            layout="nodisplay">
               <script type="application/json">
                 {
-                  "selector": "#bubble-image-{{../id}}",
+                  "selector": "#bubble-image-{{id}}",
                   "animation": "bubbleTransition"
                 }
               </script>
             </amp-animation>
             <amp-img class="image"
                      layout=responsive
-                     src="{{.}}"
-                     width="{{../mediaSize.width}}"
-                     height="{{../mediaSize.height}}">
+                     src="{{media}}"
+                     width="{{mediaSize.width}}"
+                     height="{{mediaSize.height}}">
               <noscript>
                 <img class="image noscript"
-                     src="{{.}}"
-                     width="{{../mediaSize.width}}"
-                     height="{{../mediaSize.height}}"
+                     src="{{media}}"
+                     width="{{mediaSize.width}}"
+                     height="{{mediaSize.height}}"
                 />
               </noscript>
             </amp-img>
           </p>
-          {{/media}}
+          {{/if}}
           <p id="bubble-bot-{{id}}" class="bubble bubble-bot bubble-animated">
               <amp-position-observer on="enter:bubbleBotTransition-{{id}}.start"
                                      layout="nodisplay"
