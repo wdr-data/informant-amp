@@ -146,6 +146,9 @@
         display: flex;
         justify-content: space-between;
       }
+      .sitemap {
+        display: none;
+      }
 
       /*---------------------------
   Blue Button
@@ -407,10 +410,10 @@
       <span class="description">Deine Infos aus NRW und der digitalen Welt. Täglich aufs Handy.</span>
       <div class="links">
         <span>© WDR 2018</span>
-        <a href="{{urlOrigin}}">Über den Informant</a>
-        <a href="{{urlOrigin}}sitemap.xml">Sitemap</a>
+        <a href="{{urlOrigin}}">Über 1LIVE Informant</a>
         <a href="https://www1.wdr.de/radio/1live/einslive-impressum-100.html">Impressum</a>
       </div>
+      <a href="{{urlOrigin}}sitemap.xml" class="sitemap">Sitemap</a>
     </footer>
     <amp-animation id="bubbleTransition"
                    layout="nodisplay"
