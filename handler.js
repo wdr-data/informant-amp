@@ -7,6 +7,10 @@ const slugify = require('slugify');
 const { js2xml, xml2js } = require('xml-js');
 const amphtmlValidator = require('amphtml-validator');
 const moment = require('moment-timezone');
+const Entities = require('html-entities').AllHtmlEntities;
+const anchorme = require("anchorme").default;
+
+const entities = new Entities();
 
 const urlOrigin = process.env.PUBLIC_URL;
 
@@ -114,6 +118,9 @@ module.exports.updateReport = async function(event) {
     handlebars.registerHelper( "getImage", report.media ? report.media: 
             fragments.map((fragment) => fragment.media).filter(media=>media) ? 
             fragments.map((fragment) => fragment.media).filter(media=>media)[0] : null);
+    handlebars.registerHelper("prepareText", text =>
+        anchorme(entities.encode(text).replace(/(?:\r\n|\r|\n)/g, '<br>'))
+    );
     const out = handlebars.compile(template)({
         ...apiData,
         url,

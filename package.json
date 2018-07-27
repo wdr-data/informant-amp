@@ -8,8 +8,10 @@
   "private": false,
   "dependencies": {
     "amphtml-validator": "^1.0.23",
+    "anchorme": "^1.1.2",
     "aws-sdk": "^2.241.1",
     "handlebars": "^4.0.11",
+    "html-entities": "^1.2.1",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.21",
     "mz": "^2.7.0",
