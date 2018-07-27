@@ -323,7 +323,7 @@
                       }
               </script>
             </amp-animation>
-          {{report.text}}
+          {{{prepareText report.text}}}
         </p>
         {{#fragments}}
           {{#if question}}
@@ -341,7 +341,7 @@
                       }
               </script>
             </amp-animation>
-            {{question}}
+            {{{prepareText question}}}
           </p>
           {{/if}}
           {{#if media}}
@@ -389,7 +389,7 @@
                       }
                   </script>
               </amp-animation>
-              {{text}}
+              {{{prepareText text}}}
           </p>
         {{/fragments}}
       </section>
