@@ -25,7 +25,8 @@
     "@wdr-data/s3-env-config": "0.0.3",
     "babel-cli": "^6.26.0",
     "serverless": "^1.27.2",
-    "serverless-offline": "^3.23.0"
+    "serverless-offline": "^3.23.0",
+    "serverless-pseudo-parameters": "^2.1.0"
   },
   "scripts": {
     "env": "ENV_BUCKET_NAME=wdr-informant-amp-env AWS_REGION=eu-central-1 s3-env-config",
