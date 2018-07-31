@@ -2642,6 +2642,10 @@ serverless-offline@^3.23.0:
     uuid "^3.2.1"
     velocityjs "^0.9.3"
 
+serverless-pseudo-parameters@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/serverless-pseudo-parameters/-/serverless-pseudo-parameters-2.1.0.tgz#82b2478c4de5c718f68b8e5bb95895e14013bce4"
+
 serverless@^1.27.2:
   version "1.27.2"
   resolved "https://registry.yarnpkg.com/serverless/-/serverless-1.27.2.tgz#940fc0a464cf25d7a914c607d8ab9410ba58479a"

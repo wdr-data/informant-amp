@@ -6,14 +6,9 @@ provider:
   region: eu-central-1
   stage: ${file(env.js):getStage}
   environment: ${file(env.js):fetch}
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - s3:PutObject
-        - s3:GetObject
-        - s3:PutObjectAcl
-        - s3:ListBucket
-      Resource: "arn:aws:s3:::${file(env.js):getBucketName}/*"
+  role: 'arn:aws:iam::#{AWS::AccountId}:role/hackingstudio/informant/hackingstudio-informant-amp-functions'
+  deploymentBucket:
+    name: ${self:service}-${self:provider.stage}-serverlessdeploymentbucket
 
 functions:
   updateReport:
@@ -47,3 +42,4 @@ resources:
 
 plugins:
   - serverless-offline
+  - serverless-pseudo-parameters
