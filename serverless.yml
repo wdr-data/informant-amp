@@ -1,4 +1,4 @@
-service: informant-amp
+service: ${file(env.js):service}
 
 provider:
   name: aws

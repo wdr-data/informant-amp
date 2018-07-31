@@ -1,3 +1,5 @@
+const service = () => 'hackingstudio-informant-amp';
+
 const fetchConfig = require('@wdr-data/s3-env-config').configure;
 
 const getStage = async (envParam = null) => {
@@ -5,7 +7,7 @@ const getStage = async (envParam = null) => {
   return process.env.SLS_STAGE || env.DEPLOY_ALIAS || 'dev';
 };
 
-const getBucketName = async () => `informant-amp-web-${await getStage()}`;
+const getBucketName = async () => `${service()}-web-${await getStage()}`;
 
 const fetch = async () => {
   const env = await fetchConfig();
@@ -16,6 +18,7 @@ const fetch = async () => {
 };
 
 module.exports = {
+  service,
   fetch,
   getStage,
   getBucketName,
