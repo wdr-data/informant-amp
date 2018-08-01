@@ -8,7 +8,7 @@ provider:
   environment: ${file(env.js):fetch}
   role: 'arn:aws:iam::#{AWS::AccountId}:role/hackingstudio/informant/hackingstudio-informant-amp-functions'
   deploymentBucket:
-    name: ${self:service}-${self:provider.stage}-serverlessdeploymentbucket
+    name: ${self:service}-${self:provider.stage}-serverlessdeployment
 
 functions:
   updateReport:
