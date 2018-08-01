@@ -9,7 +9,7 @@ cache: yarn
 
 env:
   global:
-    - ENV_BUCKET_NAME=wdr-informant-amp-env
+    - ENV_BUCKET_NAME=hackingstudio-informant-amp-env
     - AWS_REGION=eu-central-1
 
 script:
