@@ -6,209 +6,7 @@
     <link rel="canonical" href="{{urlOrigin}}{{url}}">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <style amp-custom>
-      body {
-        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
-        padding: 1rem;
-      }
-      ::selection {
-        background-color: rgba(255, 0, 153, 0.25);
-      }
-      a {
-        color: #E00087;
-      }
-      .container {
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      .brand-background {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 1rem;
-        max-width: 900px;
-        background-color: #f09;
-        border-radius: 5px;
-        font-weight: bold;
-        text-decoration: none;
-        -webkit-transition: all ease .15s;
-        -o-transition: all ease .15s;
-        -moz-transition: all ease .15s;
-        transition: all ease .15s;
-      }
-      .brand-background:hover {
-        background-color: #ff3aaf;
-        -webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);
-        -moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);
-        box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);
-      }
-      .brand-background:focus {
-        background-color: #f0008e;
-        -webkit-box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.3);
-        -moz-box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.3);
-        box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.3);
-      }
-      div.logo {
-        height: 2.5rem;
-        width: 2.5rem;
-        padding: .5rem;
-      }
-      svg.logo {
-        border-radius: 50%;
-      }
-      .brand {
-        color: white;
-        display: inline-block;
-        padding: .5rem;
-        margin: 0;
-        font-size: 2rem;
-      }
-      h1 {
-        margin-top: 2rem;
-        margin-bottom: 1rem;
-        font-size: 2.5rem;
-        text-transform: uppercase;
-        word-break: break-word;
-      }
-      p.headline {
-        margin-bottom: 2rem;
-      }
-      .fragments {
-        display: flex;
-        flex-direction: column;
-      }
-      .bubble {
-        padding: 0.75rem 1rem;
-        border-radius: 1rem;
-        display: inline-block;
-        max-width: 90%;
-        margin-top: 2rem;
-        margin-bottom: 0;
-        line-height: 1.25;
-      }
-      .fragments > *:first-child {
-        margin-top: 0;
-      }
-      .bubble-user {
-        background-color: #E00087;
-        color: white;
-        align-self: flex-end;
-      }
-      .bubble-bot {
-        background-color: #d8d8d8;
-      }
-      .image {
-        border-radius: 1rem;
-        margin-top: 2rem;
-      }
-      .image + .bubble-bot {
-        border-top-left-radius: .2rem;
-        margin-top: .5rem;
-      }
-      .bubble-bot + .image {
-        margin-top: .5rem;
-      }
-      .bubble-image {
-        margin: 0;
-      }
-      html[amp-version] .bubble-animated {
-        opacity: 0;
-      }
-      .image .noscript {
-        max-width: 100%;
-        height: auto;
-      }
-      footer {
-        margin-top: 2rem;
-        margin-bottom: 1rem;
-        display: block;
-      }
-      footer .seperator {
-        line-height: 0;
-        font-size: 3rem;
-        font-weight: bold;
-        text-align: center;
-        margin-top: 1rem;
-        margin-bottom: 3rem;
-        display: block;
-        width: 100%;
-        color: #555;
-      }
-      footer .social {
-        display: block;
-        width: 100%;
-        text-align: center;
-        margin-bottom: 1rem;
-      }
-      footer .description {
-        font-size: 1.2rem;
-        font-weight: bold;
-        text-transform: uppercase;
-        text-align: center;
-        display: block;
-        margin-bottom: 1rem;
-      }
-      footer .links {
-        display: flex;
-        justify-content: space-between;
-      }
-      footer .links a, footer .links span {
-        padding: 0 .5rem;
-      }
-      .sitemap {
-        display: none;
-      }
-
-      /*---------------------------
-  Blue Button
----------------------------*/
-
-      a.fb-message-blue {
-        font-size: 1rem;
-        font-family: Helvetica, Arial, sans-serif;
-        text-decoration: none;
-        color: #fff;
-        background-color: #0071E6;
-        border: 1px solid #0071E6;
-        height: 2.2rem;
-        line-height: 2.2rem;
-        border-radius: 3px;
-        outline: none;
-        display: inline-block;
-        -webkit-transition: all ease .15s;
-        -o-transition: all ease .15s;
-        -moz-transition: all ease .15s;
-        transition: all ease .15s;
-        margin: auto;
-        padding-right: .5rem;
-      }
-      a.fb-message-blue:hover {
-        background-color: #2093ff;
-        border: 1px solid #2093ff;
-        -webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);
-        -moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);
-        box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);
-        /* transform: scale(1.15); */ /* uncomment to add zoom effect */
-      }
-      a.fb-message-blue:focus {
-        background-color: #0084ff;
-        border: 1px solid #0084ff;
-        -webkit-box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.3);
-        -moz-box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.3);
-        box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.3);
-      }
-
-      .fb-message-blue i {
-        background-image: url('https://images.informant.einslive.de/messenger_logo.png');
-        background-repeat: no-repeat;
-        background-size: 17px;
-        background-position: 7px 9px;
-        top: -1px;
-        height: 18px;
-        width: 17px;
-        padding: 10px 7px;
-        float: left;
-      }
-
+        {{{styles}}}
     </style>
 
     <script type="application/ld+json">
@@ -259,7 +57,7 @@
   <body>
     <header class="container">
       <a class="brand-background" href="{{urlOrigin}}">
-        <div class="logo"><svg class="logo" version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9600 9600" preserveAspectRatio="xMidYMid meet">
+        <div class="logo"><svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9600 9600" preserveAspectRatio="xMidYMid meet">
             <g id="layer101" fill="#000000" stroke="none">
              <path d="M0 4800 l0 -4800 4800 0 4800 0 0 4800 0 4800 -4800 0 -4800 0 0 -4800z"/>
             </g>
@@ -276,7 +74,7 @@
       </a>
     </header>
     <article class="container">
-      <h1>{{report.headline}}</h1>
+      <h1 class="headline">{{report.headline}}</h1>
       <p class="headline">{{dateCreated}}</p>
       <section class="fragments">
         {{#report.media}}
@@ -408,7 +206,7 @@
     </article>
     <footer class="container">
       <a class="brand-background" href="{{urlOrigin}}">
-        <div class="logo"><svg class="logo" version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9600 9600" preserveAspectRatio="xMidYMid meet">
+        <div class="logo"><svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9600 9600" preserveAspectRatio="xMidYMid meet">
           <g id="layer101" fill="#000000" stroke="none">
             <path d="M0 4800 l0 -4800 4800 0 4800 0 0 4800 0 4800 -4800 0 -4800 0 0 -4800z"/>
           </g>
