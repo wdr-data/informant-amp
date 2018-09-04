@@ -298,12 +298,18 @@
                     layout=responsive
                     src="{{.}}"
                     width="{{../report.mediaSize.width}}"
-                    height="{{../report.mediaSize.height}}">
+                    height="{{../report.mediaSize.height}}"
+                    {{#if ../report.media_alt}}
+                    alt="{{../report.media_alt}}"
+                    {{/if}}>
               <noscript>
                 <img class="image noscript"
                     src="{{.}}"
                     width="{{../report.mediaSize.width}}"
                     height="{{../report.mediaSize.height}}"
+                    {{#if ../report.media_alt}}
+                    alt="{{../report.media_alt}}"
+                    {{/if}}
                 />
               </noscript>
             </amp-img>
@@ -363,12 +369,18 @@
                      layout=responsive
                      src="{{media}}"
                      width="{{mediaSize.width}}"
-                     height="{{mediaSize.height}}">
+                     height="{{mediaSize.height}}"
+                     {{#if media_alt}}
+                     alt="{{media_alt}}"
+                     {{/if}}>
               <noscript>
                 <img class="image noscript"
                      src="{{media}}"
                      width="{{mediaSize.width}}"
                      height="{{mediaSize.height}}"
+                     {{#if media_alt}}
+                     alt="{{media_alt}}"
+                     {{/if}}
                 />
               </noscript>
             </amp-img>
