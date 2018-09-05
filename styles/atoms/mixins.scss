@@ -1,0 +1,21 @@
+@mixin box-shadow($shadows...) {
+  -moz-box-shadow: $shadows;
+  -webkit-box-shadow: $shadows;
+  -o-box-shadow: $shadows;
+  box-shadow: $shadows;
+}
+
+@mixin transition($transitions...) {
+  -moz-transition: $transitions;
+  -webkit-transition: $transitions;
+  -o-transition: $transitions;
+  transition: $transitions;
+}
+
+@mixin button-hover {
+  @include box-shadow(inset 0px 0px 8px 0px fade_out(black, 0.8));
+}
+
+@mixin button-focus {
+  @include box-shadow(inset 0px 0px 8px 0px fade_out(black, 0.7));
+}

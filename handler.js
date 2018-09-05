@@ -14,8 +14,13 @@ const sass = require('node-sass');
 const entities = new Entities();
 
 const urlOrigin = process.env.PUBLIC_URL;
-const STYLES = sass.renderSync({
-  file: 'style.scss',
+
+const STYLES_INDEX = sass.renderSync({
+  file: 'styles/templates/index.scss',
+}).css.toString('utf-8');
+
+const STYLES_CHAT = sass.renderSync({
+  file: 'styles/templates/chat.scss',
 }).css.toString('utf-8');
 
 const LambdaResponseMixin = (Base) =>
@@ -69,7 +74,7 @@ module.exports.updateIndex = async function(event) {
     const out = handlebars.compile(template)({
         ...apiData,
       urlOrigin,
-      styles: STYLES,
+      styles: STYLES_INDEX,
     });
 
     const defaultOpts = {
@@ -130,7 +135,7 @@ module.exports.updateReport = async function(event) {
         ...apiData,
         url,
         urlOrigin,
-        styles: STYLES,
+        styles: STYLES_CHAT,
         dateCreated: moment(dateCreated).tz('Europe/Berlin').format('DD.MM.YYYY'),
     });
     const validator = await amphtmlValidator.getInstance();

@@ -1,0 +1,25 @@
+@import "../atoms/bubble";
+@import "../atoms/headline";
+@import "../atoms/paragraph";
+
+.fragments {
+  display: flex;
+  flex-direction: column;
+
+  > *:first-child {
+    margin-top: 0;
+  }
+
+  .bubble__image amp-img {
+    border-bottom-left-radius: .2rem;
+  }
+
+  .bubble__image + .bubble__bot {
+    border-top-left-radius: .2rem;
+    margin-top: .5rem;
+  }
+
+  .bubble__bot + .bubble__image {
+    margin-top: .5rem;
+  }
+}

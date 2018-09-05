@@ -1,0 +1,90 @@
+@import "colors";
+@import "mixins";
+
+// --- Ratios ---
+$button-hover: 15%;
+$button-focus: 10%;
+
+.button {
+  text-decoration: none;
+  color: white;
+
+  border-radius: 4px;
+  outline: none;
+  display: inline-block;
+  margin: auto;
+
+  @include transition(all ease .5s);
+
+  &:hover {
+    @include box-shadow(inset 0px 0px 8px 0px fade_out(black, 0.8));
+  }
+
+  &:focus {
+    @include box-shadow(inset 0px 0px 8px 0px fade_out(black, 0.7));
+  }
+
+  &__informant {
+    background-color: $magenta;
+
+    width: 100%;
+    padding: {
+      top: .6rem;
+      bottom: .6rem;
+    }
+
+    margin-bottom: 1rem;
+
+    font: {
+      weight: bold;
+      size: 2rem;
+    }
+    text-align: center;
+
+    &:hover {
+      background-color: lighten($magenta, $button-hover);
+    }
+
+    &:focus {
+      background-color: darken($magenta, $button-focus);
+    }
+  }
+
+  &__messenger {
+    $messenger-color: #0071e6;
+
+    background-color: $messenger-color;
+    border: 1px solid $messenger-color;
+
+    font-size: 1.125rem;
+    line-height: 2.325rem;
+    height: 2.325rem;
+    padding-right: .6rem;
+
+    &:hover {
+      background-color: lighten($messenger-color, $button-hover);
+      border: 1px solid lighten($messenger-color, $button-hover);
+    }
+
+    &:focus {
+      background-color: darken($messenger-color, $button-focus);
+      border: 1px solid darken($messenger-color, $button-focus);;
+    }
+
+    i {
+      background: {
+        image: url('https://images.informant.einslive.de/messenger_logo.png');
+        repeat: no-repeat;
+        size: 1.4rem;
+        position: .6rem .5rem;
+      }
+
+      top: -1px;
+      height: 1.35rem;
+      width: 1.3rem;
+      padding: .6rem;
+
+      float: left;
+    }
+  }
+}
