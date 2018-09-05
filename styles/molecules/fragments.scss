@@ -12,6 +12,9 @@
 
   .bubble__image amp-img {
     border-bottom-left-radius: .2rem;
+    noscript img {
+      border-bottom-left-radius: .2rem;
+    }
   }
 
   .bubble__image + .bubble__bot {
