@@ -1,0 +1,20 @@
+@import "../molecules/header";
+@import "../molecules/claims";
+@import "../molecules/footer";
+
+@import "../atoms/colors";
+@import "../atoms/push";
+
+.button__informant {
+  &:hover {
+    background-color: $magenta;
+    box-shadow: none;
+  }
+}
+
+.button__messenger {
+  margin: {
+    top: 1rem;
+    bottom: 1rem;
+  }
+}

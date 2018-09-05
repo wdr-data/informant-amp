@@ -1,0 +1,9 @@
+@import "../atoms/body";
+@import "../atoms/logo";
+@import "../atoms/button";
+
+header {
+  .logo {
+    margin-bottom: 2rem;
+  }
+}

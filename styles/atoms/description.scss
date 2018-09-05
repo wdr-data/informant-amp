@@ -1,0 +1,17 @@
+.description {
+  font: {
+    size: 1.5rem;
+    weight: bold;
+  }
+  display: block;
+  text-align: center;
+  text-transform: uppercase;
+  color: black;
+
+  &--small {
+    font: {
+      size: 1.4rem;
+    }
+    margin-bottom: 1rem;
+  }
+}

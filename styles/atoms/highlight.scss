@@ -1,0 +1,21 @@
+@import "colors";
+
+.highlight {
+  font: {
+    size: 1.25rem;
+    weight: bold;
+  }
+  line-height: 1.8;
+  text-transform: uppercase;
+
+  color: white;
+
+  padding: 1rem;
+  margin: 0;
+
+  span {
+    background-color: $magenta;
+    padding: .2rem;
+    box-shadow: 0.3rem 0 0 $magenta, -0.3rem 0 0 $magenta;
+  }
+}
