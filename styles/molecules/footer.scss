@@ -1,0 +1,28 @@
+@import "../atoms/button";
+@import "../atoms/link";
+@import "../atoms/center";
+@import "../atoms/container";
+@import "../atoms/description";
+
+footer {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  display: block;
+
+  .description {
+    margin-bottom: 1rem;
+  }
+
+  .links {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .links a, .links span {
+    padding: 0 .5rem;
+  }
+
+  .sitemap {
+    display: none;
+  }
+}

@@ -6,175 +6,7 @@
     <link rel="canonical" href="{{urlOrigin}}">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <style amp-custom>
-      body {
-        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
-        padding: 1rem;
-      }
-      ::selection {
-        background-color: rgba(255, 0, 153, 0.25);
-      }
-      a {
-        color: #E00087;
-      }
-      .container {
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      .brand-background {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 1rem;
-        max-width: 900px;
-        background-color: #f09;
-        border-radius: 5px;
-        font-weight: bold;
-      }
-      div.logo {
-        height: 2.5rem;
-        width: 2.5rem;
-        padding: .5rem;
-      }
-      svg.logo {
-        border-radius: 50%;
-      }
-      h1.brand {
-        color: white;
-        display: inline-block;
-        padding: .5rem;
-        margin: 0;
-        font-size: 2rem;
-      }
-      h2 {
-        margin-top: 2rem;
-        font-size: 1.5rem;
-        text-align: center;
-        text-transform: uppercase;
-      }
-      h3 {
-        font-size: 1.25rem;
-        color: black;
-        text-transform: uppercase;
-        display: inline;
-      }
-      .image {
-        border-radius: 1rem;
-        margin-top: 2rem;
-      }
-      .image .noscript {
-        max-width: 100%;
-        height: auto;
-      }
-      .social {
-        display: block;
-        width: 100%;
-        text-align: center;
-        margin-bottom: 1rem;
-      }
-      .description {
-        font-size: 1.1rem;
-        color: white;
-        font-weight: bold;
-        text-transform: uppercase;
-        padding: 1rem;
-      }
-      .description div {
-        margin-bottom: 1rem;
-        line-height: 1.5;
-      }
-      .description span {
-        background-color: #f09;
-        box-shadow: 0.3rem 0 0 #f09, -0.3rem 0 0 #f09;
-      }
-      article ul {
-        list-style: none;
-        padding-left: 1.9rem;
-        text-indent: -1.6rem;
-      }
-      article li:before {
-        content: "➡ ";
-        display: block;
-        float: left;
-        width: 1.6rem;
-        font-family: "Apple Color Emoji", "Segoe UI Emoji", "NotoColorEmoji", "Segoe UI Symbol", "Android Emoji", "EmojiSymbols";
-      }
-      article a {
-        text-decoration-color: black;
-      }
-      .push-title {
-        font-size: 1.5rem;
-        font-weight: bold;
-        text-transform: uppercase;
-        display: block;
-        margin-bottom: 1rem;
-      }
-      footer {
-        margin-top: 2rem;
-        margin-bottom: 1rem;
-        display: block;
-      }
-      footer .links {
-        display: flex;
-        justify-content: space-between;
-      }
-      footer .links a, footer .links span {
-        padding: 0 .5rem;
-      }
-      .sitemap {
-        display: none;
-      }
-
-      /*---------------------------
-  Blue Button
----------------------------*/
-
-      a.fb-message-blue {
-        font-size: 1rem;
-        font-family: Helvetica, Arial, sans-serif;
-        text-decoration: none;
-        color: #fff;
-        background-color: #0071E6;
-        border: 1px solid #0071E6;
-        height: 2.2rem;
-        line-height: 2.2rem;
-        border-radius: 3px;
-        outline: none;
-        display: inline-block;
-        -webkit-transition: all ease .15s;
-        -o-transition: all ease .15s;
-        -moz-transition: all ease .15s;
-        transition: all ease .15s;
-        margin: auto;
-        padding-right: .5rem;
-      }
-      a.fb-message-blue:hover {
-        background-color: #2093ff;
-        border: 1px solid #2093ff;
-        -webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);
-        -moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);
-        box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);
-        /* transform: scale(1.15); */ /* uncomment to add zoom effect */
-      }
-      a.fb-message-blue:focus {
-        background-color: #0084ff;
-        border: 1px solid #0084ff;
-        -webkit-box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.3);
-        -moz-box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.3);
-        box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.3);
-      }
-
-      .fb-message-blue i {
-        background-image: url('https://images.informant.einslive.de/messenger_logo.png');
-        background-repeat: no-repeat;
-        background-size: 17px;
-        background-position: 7px 9px;
-        top: -1px;
-        height: 18px;
-        width: 17px;
-        padding: 10px 7px;
-        float: left;
-      }
-
+        {{{styles}}}
     </style>
 
     <script type="application/ld+json">
@@ -211,42 +43,32 @@
   </head>
   <body>
     <header class="container">
-      <div class="brand-background">
-        <div class="logo"><svg class="logo" version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9600 9600" preserveAspectRatio="xMidYMid meet">
-            <g id="layer101" fill="#000000" stroke="none">
-             <path d="M0 4800 l0 -4800 4800 0 4800 0 0 4800 0 4800 -4800 0 -4800 0 0 -4800z"/>
-            </g>
-            <g id="layer102" fill="#ff0099" stroke="none">
-             <path d="M0 4800 l0 -4800 4800 0 4800 0 0 4800 0 4800 -4800 0 -4800 0 0 -4800z m5024 4074 c9 -3 21 -25 27 -48 6 -22 73 -270 149 -551 76 -280 211 -778 300 -1105 89 -327 215 -791 280 -1030 65 -239 173 -637 240 -885 68 -247 172 -630 231 -849 60 -220 109 -405 109 -413 0 -11 -225 -13 -1357 -11 l-1357 3 -52 190 c-28 105 -107 393 -174 640 -67 248 -175 646 -240 885 -65 239 -191 703 -280 1030 -89 327 -210 775 -270 995 -60 220 -112 412 -115 426 -6 24 1 31 87 86 542 351 1177 568 1833 627 153 14 561 21 589 10z m391 -5218 c451 -100 815 -416 968 -842 52 -145 72 -265 72 -439 0 -235 -40 -401 -147 -606 -178 -343 -502 -589 -888 -674 -117 -26 -347 -31 -472 -10 -488 80 -886 419 -1038 886 -44 134 -61 244 -61 404 0 227 42 401 143 597 186 363 526 614 933 689 121 23 377 20 490 -5z"/>
-             <path d="M4040 6920 l0 -1090 -205 0 c-150 0 -205 -3 -205 -12 0 -9 102 -389 166 -615 l15 -53 499 0 500 0 0 1430 0 1430 -385 0 -385 0 0 -1090z"/>
-            </g>
-            <g id="layer103" fill="#ffffff" stroke="none">
-             <path d="M0 4800 l0 -4800 4800 0 4800 0 0 4800 0 4800 -4800 0 -4800 0 0 -4800z m5144 4065 c529 -47 1004 -179 1466 -409 1222 -609 2054 -1769 2234 -3116 169 -1259 -260 -2525 -1160 -3424 -766 -767 -1802 -1196 -2884 -1196 -1083 0 -2118 429 -2884 1196 -767 766 -1196 1802 -1196 2884 0 1374 687 2648 1838 3408 761 503 1682 737 2586 657z"/>
-             <path d="M4040 6920 l0 -1090 -205 0 c-150 0 -205 -3 -205 -12 0 -9 102 -389 166 -615 l15 -53 499 0 500 0 0 1430 0 1430 -385 0 -385 0 0 -1090z"/>
-            </g>
-        </svg></div>
-        <h1 class="brand">1LIVE Informant</h1>
-      </div>
-      <h2>Deine Infos aus NRW und der digitalen Welt. Täglich aufs Handy.</h2>
-      <div class="description">
-          <div class="one"><span>Gemacht von den 1LIVE Infos</span></div>
-          <div class="two"><span>Deine Infos hier lesen: Ohne Konto, ohne Anmeldung</span></div>
-          <div class="three"><span>Im Facebook-Messenger nutzen: Bekomme deine Nachrichten morgens oder abends aufs Handy. Oder frage den Informant nach deinen Themen.</span></div>
-      </div>
-      <div class="social">
-        <a href="https://m.me/1LIVE.Informant/?ref=stats-amp-index"
-           class="fb-message-blue"
-           target="_blank">
-        <i></i> Im Messenger nutzen </a>
-      </div>
+      <div class="logo"><svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9600 9600" preserveAspectRatio="xMidYMid meet">
+        <path d="M 3205.2386,4668.9905 3032.6566,2472.1022 4222.8166,674.37313 6491.614,1148.9736 6865.5416,4784.0451 6074.5408,8893.7172 4740.5625,9123.8265 2313.565,8361.5894 Z" id="path2" style="fill:#000000;stroke:none" /> <g stroke="none" fill="#ff0099" id="layer102"> <path id="path5" d="M 589.65515,4454.836 C 659.97826,3368.892 1191.0051,2238.9567 1999.0748,1510.0924 2739.1348,842.57166 3817.7701,509.52665 4814.3818,503.36415 5832.0269,497.07159 6959.744,799.08052 7701.5981,1495.7106 8548.3994,2290.8903 9003.6935,3552.6195 9039.1085,4713.709 9069.0719,5696.0665 8727.5088,6764.8328 8075.5257,7500.2524 7255.3237,8425.4185 5976.1443,9079.0909 4740.5625,9123.8265 3658.8708,9162.9903 2466.4654,8706.6513 1725.8199,7917.3256 894.63946,7031.5142 511.15782,5667.008 589.65515,4454.836 Z M 5004.5986,9124.8748 6370,3985 H 3643.3034 L 2481.742,8444.9287 Z M 5415,3656 c 451,-100 815,-416 968,-842 52,-145 72,-265 72,-439 0,-235 -40,-401 -147,-606 -178,-343 -502,-589 -888,-674 -117,-26 -347,-31 -472,-10 -488,80 -886,419 -1038,886 -44,134 -61,244 -61,404 0,21.4533 0.3751,42.4332 1.1397,63.003 7.3259,197.0822 50.4056,356.5205 141.8603,533.997 186,363 526,614 933,689 121,23 377,20 490,-5 z" /> </g> <g fill="#ffffff" stroke="none" id="layer103"> <path id="path10" d="M0 4800 l0 -4800 4800 0 4800 0 0 4800 0 4800 -4800 0 -4800 0 0 -4800z m5144 4065 c529 -47 1004 -179 1466 -409 1222 -609 2054 -1769 2234 -3116 169 -1259 -260 -2525 -1160 -3424 -766 -767 -1802 -1196 -2884 -1196 -1083 0 -2118 429 -2884 1196 -767 766 -1196 1802 -1196 2884 0 1374 687 2648 1838 3408 761 503 1682 737 2586 657z" /> <path id="path12" d="m 4040,5830 h -410 c 60.4743,-229.802 117.2188,-454.6399 181,-680 h 999 v 2860 h -770 z" /> </g>
+      </svg></div>
+      <h1 class="button button__informant">1LIVE Informant</h1>
     </header>
     <article class="container">
-      <span class="push-title">Jetzt beim 1LIVE Informant:</span>
-      <ul>
-        {{#reports}}
-        <li><a href="{{makeURL id created headline}}"><h3>{{headline}}</h3></a></li>
-        {{/reports}}
-      </ul>
+      <h2 class="description">Deine Infos aus NRW und der digitalen Welt.<br>Täglich aufs Handy.</h2>
+      <div class="claims">
+        <p class="highlight"><span>Gemacht von den 1LIVE Infos</span></p>
+        <p class="highlight"><span>Deine Infos hier lesen: Ohne Konto, ohne Anmeldung</span></p>
+        <p class="highlight"><span>Im Facebook-Messenger nutzen: Bekomme deine Nachrichten morgens oder abends aufs Handy. Oder frage den Informant nach deinen Themen.</span></p>
+      </div>
+      <div class="center">
+        <a href="https://m.me/1LIVE.Informant/?ref=stats-amp-index"
+           class="button button__messenger"
+           target="_blank">
+          <i></i> Im Messenger nutzen </a>
+      </div>
+      <div class="push">
+        <h3 class="title">Jetzt beim 1LIVE Informant:</h3>
+        <ul>
+          {{#reports}}
+            <li><a href="{{makeURL id created headline}}">{{headline}}</a></li>
+          {{/reports}}
+        </ul>
+      </div>
     </article>
     <footer class="container">
       <div class="links">

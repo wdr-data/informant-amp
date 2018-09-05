@@ -1,0 +1,10 @@
+@import "colors";
+
+body {
+  font-family: Roboto,"Segoe UI",Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+  padding: 1rem;
+}
+
+::selection, ::-moz-selection {
+  background-color: fade_out($magenta, .75);
+}

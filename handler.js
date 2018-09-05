@@ -9,10 +9,19 @@ const amphtmlValidator = require('amphtml-validator');
 const moment = require('moment-timezone');
 const Entities = require('html-entities').AllHtmlEntities;
 const anchorme = require("anchorme").default;
+const sass = require('node-sass');
 
 const entities = new Entities();
 
 const urlOrigin = process.env.PUBLIC_URL;
+
+const STYLES_INDEX = sass.renderSync({
+  file: 'styles/templates/index.scss',
+}).css.toString('utf-8').replace('@charset "UTF-8";', '');
+
+const STYLES_CHAT = sass.renderSync({
+  file: 'styles/templates/chat.scss',
+}).css.toString('utf-8');
 
 const LambdaResponseMixin = (Base) =>
     class extends Base {
@@ -65,6 +74,7 @@ module.exports.updateIndex = async function(event) {
     const out = handlebars.compile(template)({
         ...apiData,
       urlOrigin,
+      styles: STYLES_INDEX,
     });
 
     const defaultOpts = {
@@ -125,6 +135,7 @@ module.exports.updateReport = async function(event) {
         ...apiData,
         url,
         urlOrigin,
+        styles: STYLES_CHAT,
         dateCreated: moment(dateCreated).tz('Europe/Berlin').format('DD.MM.YYYY'),
     });
     const validator = await amphtmlValidator.getInstance();

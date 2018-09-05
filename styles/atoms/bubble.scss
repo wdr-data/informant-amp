@@ -1,0 +1,49 @@
+@import "colors";
+
+.bubble {
+  padding: 0.75rem 1rem;
+  border-radius: .7rem;
+  display: inline-block;
+  max-width: 90%;
+  margin: {
+    top: 2rem;
+    bottom: 0;
+  }
+
+  font: {
+    size: 1.125rem;
+  }
+  line-height: 1.25;
+
+  &__bot {
+    background-color: $grey-light;
+  }
+
+  &__user {
+    background-color: $magenta-dark;
+    color: white;
+    align-self: flex-end;
+  }
+
+  &__image {
+    padding: 0;
+  }
+
+  amp-img {
+    border-radius: .7rem;
+  }
+
+  amp-img noscript img {
+    max-width: 100%;
+    height: auto;
+    border-radius: .7rem;
+  }
+
+  a {
+    color: darken($magenta-dark, 10%);
+  }
+}
+
+html[amp-version] .bubble__animated {
+  opacity: 0;
+}
