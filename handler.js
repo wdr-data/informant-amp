@@ -17,7 +17,7 @@ const urlOrigin = process.env.PUBLIC_URL;
 
 const STYLES_INDEX = sass.renderSync({
   file: 'styles/templates/index.scss',
-}).css.toString('utf-8');
+}).css.toString('utf-8').replace('@charset "UTF-8";', '');
 
 const STYLES_CHAT = sass.renderSync({
   file: 'styles/templates/chat.scss',
