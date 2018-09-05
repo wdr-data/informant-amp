@@ -1,9 +1,9 @@
-@import "../atoms/colors";
-@import "../atoms/push";
-
 @import "../molecules/header";
 @import "../molecules/claims";
 @import "../molecules/footer";
+
+@import "../atoms/colors";
+@import "../atoms/push";
 
 .button__informant {
   &:hover {
