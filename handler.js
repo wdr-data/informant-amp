@@ -66,6 +66,8 @@ module.exports.updateIndex = async function(event) {
         return new BadRequestError(e).toLambdaResponse();
     }
 
+    apiData.reports = apiData.reports.filter((r) => !r.is_quiz);
+
     const template = (await fs.readFile('templateIndex.html.handlebars')).toString();
     handlebars.registerHelper( "makeURL", ( id, created, headline ) => {
         const dateCreated = new Date(created);
