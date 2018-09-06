@@ -17,5 +17,6 @@
     background-color: $magenta;
     padding: .3rem;
     box-shadow: 0.4rem 0 0 $magenta, -0.4rem 0 0 $magenta;
+    box-decoration-break: clone;
   }
 }
