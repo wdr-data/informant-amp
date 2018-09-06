@@ -30,7 +30,7 @@
     "serverless-pseudo-parameters": "^2.1.0"
   },
   "scripts": {
-    "env": "ENV_BUCKET_NAME=wdr-informant-amp-env AWS_REGION=eu-central-1 s3-env-config",
+    "env": "ENV_BUCKET_NAME=hackingstudio-informant-amp-env AWS_REGION=eu-central-1 s3-env-config",
     "build": "serverless package",
     "deploy": "serverless deploy -p .serverless"
   }
