@@ -120,6 +120,13 @@ module.exports.updateReport = async function(event) {
 
     const { report, fragments } = apiData;
 
+    if (report.is_quiz) {
+        return {
+          body: JSON.stringify({success: true}),
+          statusCode: 200,
+        };
+    }
+
     const dateCreated = new Date(report.created);
     const dateModified = new Date(report.modified);
     const urlBase = `${dateCreated.getFullYear()}/${dateCreated.getMonth()+1}`;
