@@ -56,10 +56,10 @@ $button-focus: 10%;
     background-color: $messenger-color;
     border: 1px solid $messenger-color;
 
-    font-size: 1.125rem;
-    line-height: 2.325rem;
-    height: 2.325rem;
-    padding-right: .6rem;
+    font-size: 1.3rem;
+    line-height: 2.4rem;
+    height: 2.4rem;
+    padding-right: .8rem;
 
     &:hover {
       background-color: lighten($messenger-color, $button-hover);
@@ -75,14 +75,14 @@ $button-focus: 10%;
       background: {
         image: url('https://images.informant.einslive.de/messenger_logo.png');
         repeat: no-repeat;
-        size: 1.4rem;
-        position: .6rem .5rem;
+        size: 1.6rem;
+        position: .7rem .45rem;
       }
 
       top: -1px;
       height: 1.35rem;
       width: 1.3rem;
-      padding: .6rem;
+      padding: .8rem;
 
       float: left;
     }
