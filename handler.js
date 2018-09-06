@@ -123,6 +123,9 @@ module.exports.updateReport = async function(event) {
     const urlBase = `${dateCreated.getFullYear()}/${dateCreated.getMonth()+1}`;
     const url = `${urlBase}/${payload.id}-${slugify(report.headline)}`;
 
+    const webtrekkId = process.env.WDR_WEBTREKK_ID;
+    const contentID = `WDR_Radio_1LIVE_1LIVE-Informant_${slugify(report.headline)}`;
+
     const template = (await fs.readFile('template.html.handlebars')).toString();
     handlebars.registerHelper( "joinTags", ( tagList ) => tagList.map(( e ) => e.name).join( "," ));
     handlebars.registerHelper( "getImage", report.media ? report.media: 
@@ -135,6 +138,8 @@ module.exports.updateReport = async function(event) {
         ...apiData,
         url,
         urlOrigin,
+        webtrekkId,
+        contentID,
         styles: STYLES_CHAT,
         dateCreated: moment(dateCreated).tz('Europe/Berlin').format('DD.MM.YYYY'),
     });
