@@ -66,6 +66,8 @@ module.exports.updateIndex = async function(event) {
         return new BadRequestError(e).toLambdaResponse();
     }
 
+    apiData.reports = apiData.reports.filter((r) => !r.is_quiz);
+
     const template = (await fs.readFile('templateIndex.html.handlebars')).toString();
     handlebars.registerHelper( "makeURL", ( id, created, headline ) => {
         const dateCreated = new Date(created);
@@ -117,6 +119,13 @@ module.exports.updateReport = async function(event) {
     }
 
     const { report, fragments } = apiData;
+
+    if (report.is_quiz) {
+        return {
+          body: JSON.stringify({success: true}),
+          statusCode: 200,
+        };
+    }
 
     const dateCreated = new Date(report.created);
     const dateModified = new Date(report.modified);
