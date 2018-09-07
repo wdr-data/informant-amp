@@ -79,7 +79,6 @@ module.exports.updateIndex = async function(event) {
         return `${urlOrigin}${dateCreated.getFullYear()}/${dateCreated.getMonth()+1}/${id}-${slugify(headline)}`;
     });
 
-    const webtrekkId = process.env.WDR_WEBTREKK_ID;
     const webtrekkContentID = `WDR_Radio_1LIVE_1LIVE-Informant_Index`;
 
     const out = handlebars.compile(template)({
