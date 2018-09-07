@@ -71,9 +71,15 @@ module.exports.updateIndex = async function(event) {
         const dateCreated = new Date(created);
         return `${urlOrigin}${dateCreated.getFullYear()}/${dateCreated.getMonth()+1}/${id}-${slugify(headline)}`;
     });
+
+    const webtrekkId = process.env.WDR_WEBTREKK_ID;
+    const webtrekkContentID = `WDR_Radio_1LIVE_1LIVE-Informant_Index`;
+
     const out = handlebars.compile(template)({
         ...apiData,
       urlOrigin,
+      webtrekkId,
+      webtrekkContentID,
       styles: STYLES_INDEX,
     });
 
@@ -124,7 +130,7 @@ module.exports.updateReport = async function(event) {
     const url = `${urlBase}/${payload.id}-${slugify(report.headline)}`;
 
     const webtrekkId = process.env.WDR_WEBTREKK_ID;
-    const contentID = `WDR_Radio_1LIVE_1LIVE-Informant_${slugify(report.headline)}`;
+    const webtrekkContentID = `WDR_Radio_1LIVE_1LIVE-Informant_${payload.id}-${slugify(report.headline)}`;
 
     const template = (await fs.readFile('template.html.handlebars')).toString();
     handlebars.registerHelper( "joinTags", ( tagList ) => tagList.map(( e ) => e.name).join( "," ));
@@ -139,7 +145,8 @@ module.exports.updateReport = async function(event) {
         url,
         urlOrigin,
         webtrekkId,
-        contentID,
+        webtrekkContentID,
+        webtrekkDateCreated: moment(dateCreated).tz('Europe/Berlin').format('YYYY-MM-DD'),
         styles: STYLES_CHAT,
         dateCreated: moment(dateCreated).tz('Europe/Berlin').format('DD.MM.YYYY'),
     });
