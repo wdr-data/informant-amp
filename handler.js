@@ -15,6 +15,13 @@ const entities = new Entities();
 
 const urlOrigin = process.env.PUBLIC_URL;
 
+const WEBTREKK_DATA = {
+  webtrekkId: process.env.WDR_WEBTREKK_ID,
+  webtrekkTrackDomain: process.env.WDR_WEBTREKK_TRACK_DOMAIN,
+  webtrekkDomain: process.env.WDR_WEBTREKK_DOMAIN,
+  webtrekkVersion: process.env.WDR_WEBTREKK_VERSION,
+};
+
 const STYLES_INDEX = sass.renderSync({
   file: 'styles/templates/index.scss',
 }).css.toString('utf-8').replace('@charset "UTF-8";', '');
@@ -78,7 +85,7 @@ module.exports.updateIndex = async function(event) {
     const out = handlebars.compile(template)({
         ...apiData,
       urlOrigin,
-      webtrekkId,
+      ...WEBTREKK_DATA,
       webtrekkContentID,
       styles: STYLES_INDEX,
     });
@@ -129,7 +136,7 @@ module.exports.updateReport = async function(event) {
     const urlBase = `${dateCreated.getFullYear()}/${dateCreated.getMonth()+1}`;
     const url = `${urlBase}/${payload.id}-${slugify(report.headline)}`;
 
-    const webtrekkId = process.env.WDR_WEBTREKK_ID;
+
     const webtrekkContentID = `WDR_Radio_1LIVE_1LIVE-Informant_${payload.id}-${slugify(report.headline)}`;
 
     const template = (await fs.readFile('template.html.handlebars')).toString();
@@ -144,7 +151,7 @@ module.exports.updateReport = async function(event) {
         ...apiData,
         url,
         urlOrigin,
-        webtrekkId,
+        ...WEBTREKK_DATA,
         webtrekkContentID,
         webtrekkDateCreated: moment(dateCreated).tz('Europe/Berlin').format('YYYY-MM-DD'),
         styles: STYLES_CHAT,

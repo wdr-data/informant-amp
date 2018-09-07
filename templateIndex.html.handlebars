@@ -79,25 +79,21 @@
 
       <a href="{{urlOrigin}}sitemap.xml" class="sitemap">Sitemap</a>
     </footer>
-    <amp-analytics type="webtrekk">
+    <amp-analytics type="{{webtrekkVersion}}">
       <script type="application/json">
       {
-        "vars":
-        {
-          "trackDomain": "wdr01.wt-eu02.net",
+        "vars": {
+          "trackDomain": "{{webtrekkTrackDomain}}",
           "trackId": "{{webtrekkId}}",
-          "domain": "informant.einslive.de",
+          "domain": "{{webtrekkDomain}}",
           "contentId": "{{webtrekkContentID}}"
         },
-        "triggers":
-        {
-          "trackPageview":
-          {
+        "triggers": {
+          "trackPageview": {
             "on": "visible",
             "request": "pageview",
-            "vars":
-            {
-              "pageParameter3": "AMP",
+            "vars": {
+              "pageParameter3": "AMP"
             }
           }
         }
